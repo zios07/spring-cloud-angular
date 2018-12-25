@@ -1,0 +1,80 @@
+<div class="custom-container">
+
+	<div class="row wrapper">
+		<div class="col-md-6">
+			<h2 class="text-center mb-5"></h2>
+			<div class="card-header">
+				<h3 class="mb-0 my-2">Product form</h3>
+			</div>
+			<div class="card-body">
+				<form #f="ngForm">
+					<div>
+						<div class="form-group">
+							<label>Code</label>
+							<input required class="form-control" type="text" name="code" [(ngModel)]="product.code"/>
+						</div>
+						
+						<div class="form-group">
+							<label>Label</label>
+							<input required class="form-control" type="text" name="label" [(ngModel)]="product.label" #label="ngModel"/>
+						</div>
+						
+						<div class="form-group">
+							<label>Description</label>
+							<input class="form-control" type="text" name="description" [(ngModel)]="product.description" #description="ngModel"/>
+						</div>
+						
+						<div class="form-group">
+							<label>Photos</label>
+							<p-fileUpload name="photos[]"
+									accept="image/*"
+									mode="advanced" 
+									multiple="multiple"
+									customUpload="false"
+									(uploadHandler)="uploadPhotos($event)"
+							></p-fileUpload>
+						</div>
+						
+						<div class="form-group">
+							<label for="priceInput">Price</label>
+							<div class="input-group">
+								<span class="input-group-addon">$</span>
+								<input required class="form-control" id="priceInput" type="number" min="1" name="price" [(ngModel)]="product.price" #price="ngModel" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label>Store quantity</label>
+							<input required class="form-control" type="number" min="1" name="qteStock" [(ngModel)]="product.qteStock"/>
+						</div>
+
+						<div class="form-group">
+							<label>Category</label>
+							<select class="form-control" name="category" [(ngModel)]="product.category" required>
+									<option *ngFor="let category of categories" 
+										[ngValue]="category">
+										{{category.label}}
+								</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label>Brand</label>
+							<select class="form-control" name="brand" [(ngModel)]="product.brand" required>
+									<option *ngFor="let brand of brands" 
+										[ngValue]="brand">
+										{{brand.label}}
+								</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-success" [disabled]="f.invalid" (click)="saveProduct()">Save product</button>
+							<button type="reset" class="btn btn-default" routerLink="/admin/products">Cancel</button>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

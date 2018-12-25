@@ -1,0 +1,46 @@
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+
+      <a class="navbar-brand" routerLink="/">Online Store</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/products" routerLinkActive="active">Products</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/contactus" routerLinkActive="active">Contact-us</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav" *ngIf="authService.isLoggedIn()">
+          <li ngbDropdown class="nav-item dropdown">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ authService.getConnectedUsername() }}</a>
+            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" routerLink="/cart" >Cart</a>
+              <a class="dropdown-item" routerLink="admin/users" *ngIf="authService.isAdmin()">Manage users</a>
+              <a class="dropdown-item" routerLink="admin/products" *ngIf="authService.isAdmin()">Manage products</a>
+              <a class="dropdown-item" routerLink="admin/brands" *ngIf="authService.isAdmin()">Manage brands</a>
+              <a class="dropdown-item" routerLink="admin/categories" *ngIf="authService.isAdmin()">Manage categories</a>
+              <a class="dropdown-item"
+                *ngIf="authService.isLoggedIn()" 
+                (click)="onLogout(registerTemplate)">
+                Logout  
+              </a>
+            </div>
+          </li>
+        </ul>
+        
+        <form class="form-inline my-2 my-lg-0 auth-form" *ngIf="!authService.isLoggedIn()">
+
+          <button *ngIf="!authService.isLoggedIn()" class="btn btn-outline-info my-2 my-sm-0" (click)="onLogin(loginTemplate)">Login</button>&nbsp;
+          <button *ngIf="!authService.isLoggedIn()" class="btn btn-outline-info my-2 my-sm-0" (click)="onRegister(registerTemplate)">Register</button>
+        </form> 
+        
+      </div>
+
+
+    </div>
+  </nav>
+

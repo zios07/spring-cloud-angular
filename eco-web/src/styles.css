@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+
+
+.container {
+    max-width: 100%;
+}
+
+.custom-container {
+    max-width: 1140px;
+    margin: auto;
+}
+
+.toast-top-right {
+    margin-top: 50px;
+}

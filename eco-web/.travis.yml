@@ -1,0 +1,30 @@
+sudo: required
+
+language: node_js
+
+node_js:
+  - "8.1.3"
+
+cache: npm
+
+service:
+  - docker
+
+stages:
+  - build
+  - name: deploy
+    if: branch = master
+
+
+# before_install:
+#   - npm install -g @angular/cli@latest
+
+# not needed, will be done by the docker build command
+# install:
+#   - npm run -q build
+
+install:
+  - skip
+
+script:
+  - docker build -t eco-web .

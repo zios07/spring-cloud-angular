@@ -1,0 +1,57 @@
+<div class="custom-container">
+  <div *ngIf="cartProducts.length !== 0">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h5>Products list</h5>
+        </div>
+        <div class="col">
+          <h5>Price</h5>
+        </div>
+        <div class="col">
+          <h5>Quantity</h5>
+        </div>
+        <div class="col">
+          <h5>P * Q</h5>
+        </div>
+        <div class="col-2"></div>
+      </div>
+      <div class="row">
+        <ng-container *ngFor="let p of cartProducts">
+          <div class="col-6" >
+            {{p.product?.label}}
+          </div>
+          <div class="col">
+            {{p.product.price}}
+          </div>
+          <div class="col">
+            {{p.quantity}}
+          </div>
+          <div class="col">
+            {{p.quantity * p.product.price}}
+          </div>
+          <div class="col-2">
+            <button class="btn btn-primary" (click)="plusProduct(p.product)" [disabled]="p.unavailable">+</button>
+            <button class="btn btn-danger"  (click)="minusProduct(p.product)" [disabled]="p.quantity == 1">-</button>
+            <button class="btn btn-danger"  (click)="deleteProductFromCart(p.product)">X</button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="container">
+      <h4 class="total-price">Total Price : {{totalPrice | currency:'USD':'symbol-narrow'}}</h4>
+    </div>
+    <div class="container">
+      <button class="btn btn-primary" routerLink="/products">Continue shopping</button>
+    </div>
+  </div>
+  <div *ngIf="cartProducts.length === 0" class="container">
+    <h3 align="center"> Cart empty </h3>
+    <button class="btn btn-primary" routerLink="/products">Do some shopping ?</button>
+  </div>
+
+  <div *ngIf="cartProducts.length !== 0" class="container">
+    <button class="btn btn-success float-right" (click)="checkout()">Checkout</button>
+  </div>
+</div>

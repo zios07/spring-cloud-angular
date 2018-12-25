@@ -1,0 +1,82 @@
+  <div class="product-wrapper">
+    <div class="container search-container">
+      <fieldset class="fs-search">
+        <legend>Advanced search</legend>
+        
+        <div class="form-group search-form">
+          <table cellpadding="10">
+            <tr>
+              <td>
+                <label><strong>Label: </strong></label>
+              </td>
+              <td>
+                <input type="text" placeholder="Product name" [(ngModel)]="productSearchDto.productLabel" class="form-control">
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label><strong>Price: </strong></label>
+              </td>
+              <td>
+                <span>
+                  {{rangeValues[0]  | currency:'USD':'symbol-narrow'}}
+                </span>
+                <p-slider [(ngModel)]="rangeValues" 
+                  [range]="true"
+                  [min]="0"
+                  [max]="100000"
+                  (onChange)="priceRangeChanged($event)"
+                  ></p-slider>
+      
+                <span>
+                  {{rangeValues[1]  | currency:'USD':'symbol-narrow'}}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label><strong>Brand: </strong></label>
+              </td>
+              <td>
+                <span class="form-group" *ngFor="let brand of brands">
+                  <input id="brand{{brand.id}}" type="checkbox" class="" (change)="brandChanged($event, brand)"> 
+                  <label for="brand{{brand.id}}">{{brand.label}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div> 
+        <input type="button" class="btn btn-primary" value="Search" (click) = "onSearch()">
+      
+      </fieldset>
+      
+    </div>
+    
+    <div class="container products-container">
+      <div class="row">
+        <ng-container *ngFor="let p of products; let i = index">
+          <div class="col product-item">
+            <div
+              class="card" style="width: 15rem;">
+              <a class="product-label-anchor" [routerLink]="['/product/details/', p.id]">
+                <img *ngIf="p.mainImage" src="data:image/jpeg;base64,{{p.mainImage.content}}" alt="Product image" class="card-img-top">
+                <img *ngIf="!p.mainImage" src="../../../assets/img/image-not-found.jpg" alt="Product image" class="card-img-top">
+              </a>
+                <div class="card-body">
+                <h4 class="card-title">
+                  <a class="product-label-anchor" [routerLink]="['/product/details/', p.id]">{{p.label}}</a>
+                </h4>
+                <p class="card-text price-text">{{p.price  | currency:'USD':'symbol-narrow'}}</p>
+                <p class="card-text stock-quantity-text" [ngClass]="p.qteStock > 100 ? '': 'not-much-left'">{{p.qteStock}} in stock</p>
+                <button class="btn btn-success" [routerLink]="['/product/details/', p.id]">View</button>
+                <button class="btn btn-primary" [disabled]="p.unavailable" (click)="addToCart(p)">Add to cart</button>
+                <br>
+                <span class="alert-unavailable" *ngIf="p.unavailable">* You cannot have more than {{p.qteStock}} items in your shopping cart</span>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="(i+1) % 3 === 0" class="w-100"></div>
+        </ng-container>
+      </div>
+    </div>
+  </div>

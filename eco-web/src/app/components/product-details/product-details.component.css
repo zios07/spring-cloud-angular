@@ -1,0 +1,9 @@
+.stock-quantity-text, .price-text {
+	font-weight: 500
+}
+.not-much-left {
+	color: red;
+}
+.card-wrapper {
+    margin: 40px;
+}

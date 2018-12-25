@@ -1,0 +1,41 @@
+<div class="custom-container">
+	<div class="row wrapper">
+		<div class="col-md-12">
+			<h2 class="text-center mb-5"></h2>
+			<div class="row">
+				<div class="col-md-6 mx-auto">
+					<div class="card border-secondary">
+						<div class="card-header">
+							<h3 class="mb-0 my-2">Brand form</h3>
+						</div>
+						<div class="card-body">
+							<form #f="ngForm" >
+								
+								<div>
+									<div class="form-group">
+										<label>Code</label>
+										<input required class="form-control" type="text" name="code" [(ngModel)]="brand.code"/>
+									</div>
+									
+									<div class="form-group">
+										<label>Label</label>
+										<input required class="form-control" type="text" name="label" [(ngModel)]="brand.label"/>
+									</div>
+									<div class="form-group">
+										<button class="btn btn-success" [disabled]="f.invalid" (click)="saveBrand()">Save Brand</button>
+										<button type="reset" class="btn btn-default" routerLink="/admin/brands">Cancel</button>
+									</div>
+
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/row-->
+		</div>
+		<!--/col-->
+	</div>
+	<!--/row-->
+
+</div>

@@ -1,0 +1,7 @@
+.container:first-child {
+	margin-top: 60px;
+}
+
+div.col, div.col-4 {
+	height: 70px;
+}

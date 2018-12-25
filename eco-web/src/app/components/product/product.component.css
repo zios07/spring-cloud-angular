@@ -1,0 +1,36 @@
+.product-item {
+    margin-bottom: 50px;
+}
+.fs-search {
+	margin: auto;
+	width: 50%
+}
+td {
+	padding-left: 40px;
+}
+.not-much-left {
+	color: red;
+}
+.product-label-anchor {
+	text-decoration: none;
+	color: cornflowerblue
+}
+.stock-quantity-text, .price-text {
+	font-weight: 500
+}
+
+.search-container    {
+    width: 30%;
+    /* height: 400px; */
+    float: left;
+}
+
+.product-wrapper {
+	margin: 50px 0px;
+}
+
+.alert-unavailable {
+	color: red;
+	font-weight: bold;
+	font-size: 0.8em;
+}

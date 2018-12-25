@@ -1,0 +1,15 @@
+.auth-form {
+    margin-left: 80px;
+}
+
+.modal-content {
+    height: 400px;
+}
+
+.dropdown-item, .nav-link {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    left: -85px !important;
+}

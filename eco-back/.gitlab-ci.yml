@@ -1,0 +1,26 @@
+image: maven:latest
+
+stages:
+  - build
+
+variables:
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+services:
+  - docker
+  
+package:
+  stage: build
+  script: mvn clean package -DskipTests
+
+build_image:
+  stage: build
+  script: docker build -t ece-back .
+  only:
+    - master
