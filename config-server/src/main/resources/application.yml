@@ -7,5 +7,6 @@ spring:
       server:
         git:
           uri: https://github.com/zios07/ecommerce-app.git
-          basedir: config-repo
+          search-paths:
+          - config-repo
             
