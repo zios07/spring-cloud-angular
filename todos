@@ -4,3 +4,8 @@ ProductService
 OrderService
 AssetService
 Sagas vs 2PC ??
+
+axon framework
+pipelines (build, test, deploy)
+docker-compose
+kubenertes migration

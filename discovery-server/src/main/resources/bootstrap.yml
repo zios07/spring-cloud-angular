@@ -1,6 +1,10 @@
+configserver:
+  host: localhost
+
 spring:
   application:
     name: discovery-server
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://${configserver.host}:8888 
+   

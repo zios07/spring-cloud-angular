@@ -1,7 +1,10 @@
+configserver:
+  host: localhost
+
 spring:
   application:
     name: product-service
   cloud:
     config:
-      uri: http://localhost:8888 
+      uri: http://${configserver.host}:8888 
    

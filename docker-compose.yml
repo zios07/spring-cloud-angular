@@ -15,4 +15,43 @@ services:
     image: adminer
     ports:
       - 8080:8080
+
+  discovery-server:
+    image: zios07/discovery-server
+    restart: always
+    ports:
+      - 8761:8761
+    environment: 
+      CONFIGSERVER_HOST: config-server
+  
+  edge-server:
+    image: zios07/edge-server
+    restart: always
+    ports:
+      - 8765:8765
+    environment: 
+      CONFIGSERVER_HOST: config-server
+
+  config-server:
+    image: zios07/config-server
+    restart: always
+    ports:
+      - 8888:8888
+
+  product-service:
+    image: zios07/product-service
+    ports:
+      - 9901:9901
+    environment: 
+      CONFIGSERVER_HOST: config-server
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ecomapp
+  
+  web:
+    image: zios07/ecom-web
+    ports:
+      - 4200:4200
   
