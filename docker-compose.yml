@@ -41,19 +41,19 @@ services:
     restart: always
     ports:
       - 8888:8888
-
-  product-service:
-    image: zios07/product-service
-    ports:
-      - 9901:9901
-    depends_on:
-      - config-server
-      - postgres
-    environment: 
-      SPRING_PROFILES_ACTIVE: staging
   
   web:
     image: zios07/ecom-web
     ports:
       - 4200:4200
-  
+
+  product-service:
+    image: zios07/product-service
+    ports:
+      - 9901:9901
+    restart: on-failure
+    depends_on:
+      - config-server
+      - postgres
+    environment: 
+      SPRING_PROFILES_ACTIVE: staging
