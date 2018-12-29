@@ -1,9 +1,0 @@
-spring:
-  profiles: staging
-
-spring:
-  application:
-    name: product-service
-  cloud:
-    config:
-      uri: http://config-server:8888 

@@ -9,8 +9,6 @@ spring:
 
 spring:
   profiles: staging
-
-spring:
   application:
     name: discovery-server
   cloud:
@@ -21,8 +19,6 @@ spring:
 
 spring:
   profiles: prod
-
-spring:
   application:
     name: discovery-server
   cloud:
