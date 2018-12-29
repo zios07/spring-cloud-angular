@@ -2,11 +2,15 @@ server:
   port: 9901
 
 spring:
+  profiles: staging
+
+
+spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: ${db.user}
-    url: jdbc:postgresql://localhost:5432/ecomapp
-    username: ${db.password}
+    password: root
+    url: jdbc:postgresql://postgres:5432/ecomapp
+    username: root123
   jpa:
     show-sql: true
     hibernate:
