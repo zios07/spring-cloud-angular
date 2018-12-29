@@ -18,7 +18,7 @@ services:
 
   discovery-server:
     image: zios07/discovery-server
-    restart: always
+    restart: on-failure
     ports:
       - 8761:8761
     depends_on:
@@ -28,7 +28,7 @@ services:
   
   edge-server:
     image: zios07/edge-server
-    restart: always
+    restart: on-failure
     ports:
       - 8765:8765
     depends_on:
