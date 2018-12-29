@@ -9,8 +9,6 @@ spring:
 
 spring:
   profiles: staging
-  application:
-    name: product-service
   cloud:
     config:
       uri: http://config-server:8888 
@@ -19,8 +17,6 @@ spring:
 
 spring:
   profiles: prod
-  application:
-    name: product-service
   cloud:
     config:
       uri: http://config-server:8888 

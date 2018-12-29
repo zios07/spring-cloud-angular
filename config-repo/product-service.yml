@@ -19,9 +19,6 @@ spring:
 
 spring:
   profiles: staging
-
-
-spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     password: root
