@@ -4,27 +4,23 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888 
-   
+
 ---
 
 spring:
   profiles: staging
-
-spring:
   application:
     name: edge-server
   cloud:
     config:
       uri: http://config-server:8888 
-
+      
 ---
 
 spring:
   profiles: prod
-
-spring:
   application:
     name: edge-server
   cloud:
     config:
-      uri: http://config-server:8888
+      uri: http://config-server:8888 
