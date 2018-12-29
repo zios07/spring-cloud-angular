@@ -8,3 +8,18 @@ spring:
     config:
       uri: http://${configserver.host}:8888 
    
+---
+
+spring:
+  profiles: staging
+
+configserver:
+  host: config-server
+
+---
+
+spring:
+  profiles: prod
+
+configserver:
+  host: config-server

@@ -21,3 +21,29 @@ spring:
     properties:
         hibernate:
             dialect: org.hibernate.dialect.PostgreSQL94Dialect
+
+---
+
+spring:
+  profiles: staging
+
+
+db:
+  username: root
+  password: root123
+  host: postgres
+  port: 5432
+  name: ecomapp
+
+---
+
+spring:
+  profiles: prod
+
+
+db:
+  username: root
+  password: root123
+  host: postgres
+  port: 5432
+  name: ecomapp

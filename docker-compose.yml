@@ -8,7 +8,7 @@ services:
       - 5432:5432
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_PASSWORD: root123
       POSTGRES_DB: ecomapp
 
   adminer:
@@ -21,16 +21,20 @@ services:
     restart: always
     ports:
       - 8761:8761
+    depends_on:
+      - config-server
     environment: 
-      CONFIGSERVER_HOST: config-server
+      SPRING_PROFILES_ACTIVE: staging
   
   edge-server:
     image: zios07/edge-server
     restart: always
     ports:
       - 8765:8765
+    depends_on:
+      - config-server
     environment: 
-      CONFIGSERVER_HOST: config-server
+      SPRING_PROFILES_ACTIVE: staging
 
   config-server:
     image: zios07/config-server
@@ -42,13 +46,11 @@ services:
     image: zios07/product-service
     ports:
       - 9901:9901
+    depends_on:
+      - config-server
+      - postgres
     environment: 
-      CONFIGSERVER_HOST: config-server
-      DB_USERNAME: root
-      DB_PASSWORD: root
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_NAME: ecomapp
+      SPRING_PROFILES_ACTIVE: staging
   
   web:
     image: zios07/ecom-web

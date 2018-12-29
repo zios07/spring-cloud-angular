@@ -8,3 +8,23 @@ eureka:
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+   
+---
+
+spring:
+  profiles: staging
+
+server:
+  port: 8761
+eureka:
+  instance: discovery-server
+
+---
+
+spring:
+  profiles: prod
+
+server:
+  port: 8761
+eureka:
+  instance: discovery-server
