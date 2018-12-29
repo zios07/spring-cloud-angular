@@ -1,25 +1,30 @@
-configserver:
-  host: localhost
-
 spring:
   application:
     name: product-service
   cloud:
     config:
-      uri: http://${configserver.host}:8888 
+      uri: http://localhost:8888 
    
 ---
 
 spring:
   profiles: staging
 
-configserver:
-  host: config-server
+spring:
+  application:
+    name: product-service
+  cloud:
+    config:
+      uri: http://config-server:8888 
 
 ---
 
 spring:
   profiles: prod
 
-configserver:
-  host: config-server
+spring:
+  application:
+    name: product-service
+  cloud:
+    config:
+      uri: http://config-server:8888
