@@ -15,6 +15,11 @@ spring:
         hibernate:
             dialect: org.hibernate.dialect.PostgreSQL94Dialect
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
 ---
 
 spring:
@@ -31,3 +36,8 @@ spring:
     properties:
         hibernate:
             dialect: org.hibernate.dialect.PostgreSQL94Dialect
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/

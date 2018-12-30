@@ -18,6 +18,9 @@ services:
 
   discovery-server:
     image: zios07/discovery-server
+    container_name: discovery-server
+    build: 
+      context: ./discovery-server
     restart: on-failure
     ports:
       - 8761:8761
@@ -28,6 +31,9 @@ services:
   
   edge-server:
     image: zios07/edge-server
+    container_name: edge-server
+    build: 
+      context: ./edge-server
     restart: on-failure
     ports:
       - 8765:8765
@@ -38,17 +44,26 @@ services:
 
   config-server:
     image: zios07/config-server
+    container_name: config-server
+    build: 
+      context: ./config-server
     restart: always
     ports:
       - 8888:8888
   
   web:
     image: zios07/ecom-web
+    container_name: ecom-web
+    build: 
+      context: ./eco-web
     ports:
-      - 4200:4200
+      - 80:80
 
   product-service:
     image: zios07/product-service
+    container_name: product-service
+    build: 
+      context: ./eco-back
     ports:
       - 9901:9901
     restart: on-failure

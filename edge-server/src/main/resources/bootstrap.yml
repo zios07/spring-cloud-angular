@@ -9,8 +9,6 @@ spring:
 
 spring:
   profiles: staging
-  application:
-    name: edge-server
   cloud:
     config:
       uri: http://config-server:8888 

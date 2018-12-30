@@ -4,23 +4,19 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888 
-   
+
 ---
 
 spring:
   profiles: staging
-  application:
-    name: discovery-server
   cloud:
     config:
       uri: http://config-server:8888 
-
+      
 ---
 
 spring:
   profiles: prod
-  application:
-    name: discovery-server
   cloud:
     config:
-      uri: http://config-server:8888
+      uri: http://config-server:8888 
