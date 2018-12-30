@@ -1,11 +1,18 @@
+
+1 - 
+swarm
+
+2 -
+pipelines (build, test, deploy)
+kubenertes migration
+
+3 -
 Keycloack
 UserService
 ProductService
 OrderService
 AssetService
-Sagas vs 2PC ??
 
+4 -
 axon framework
-pipelines (build, test, deploy)
-docker-compose
-kubenertes migration
+Sagas vs 2PC ??

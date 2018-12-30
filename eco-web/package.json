@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "node server",
     "build": "ng build --prod",
+    "build-staging": "ng build -e staging",
     "serve": "ng serve",
     "test": "ng test",
     "lint": "ng lint",

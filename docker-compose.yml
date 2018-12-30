@@ -26,6 +26,7 @@ services:
       - 8761:8761
     depends_on:
       - config-server
+    command: ./wait-for-it.sh config-server:8888 -- java -jar ./app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
   
@@ -39,6 +40,8 @@ services:
       - 8765:8765
     depends_on:
       - config-server
+      - discovery-server
+    command: ./wait-for-it.sh discovery-server:8761 -- java -jar ./app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
 
@@ -56,6 +59,7 @@ services:
     container_name: ecom-web
     build: 
       context: ./eco-web
+      dockerfile: Dockerfile-staging
     ports:
       - 80:80
 
@@ -69,6 +73,8 @@ services:
     restart: on-failure
     depends_on:
       - config-server
+      - discovery-server
       - postgres
+    command: ./wait-for-it.sh discovery-server:8761 -- java -jar app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
