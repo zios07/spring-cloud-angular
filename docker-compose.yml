@@ -10,6 +10,8 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root123
       POSTGRES_DB: ecomapp
+    volumes:
+      - pgdata:var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -78,3 +80,6 @@ services:
     command: ./wait-for-it.sh discovery-server:8761 -- java -jar app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
+
+  volumes: 
+    pgdata:
