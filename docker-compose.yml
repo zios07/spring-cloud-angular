@@ -10,12 +10,19 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root123
       POSTGRES_DB: ecomapp
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - ecomnet
+
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
-
+    networks:
+      - ecomnet
+  
   discovery-server:
     image: zios07/discovery-server
     container_name: discovery-server
@@ -29,7 +36,9 @@ services:
     command: ./wait-for-it.sh config-server:8888 -- java -jar ./app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
-  
+    networks:
+      - ecomnet
+
   edge-server:
     image: zios07/edge-server
     container_name: edge-server
@@ -44,6 +53,8 @@ services:
     command: ./wait-for-it.sh discovery-server:8761 -- java -jar ./app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
+    networks:
+      - ecomnet
 
   config-server:
     image: zios07/config-server
@@ -53,15 +64,24 @@ services:
     restart: always
     ports:
       - 8888:8888
-  
+    networks:
+      - ecomnet
+
   web:
     image: zios07/ecom-web
     container_name: ecom-web
+    dns:
+      - 8.8.8.8
+      - 4.4.4.4
+      - 40.117.145.42
     build: 
       context: ./eco-web
       dockerfile: Dockerfile-staging
     ports:
       - 80:80
+    networks:
+      - ecomnet
+
 
   product-service:
     image: zios07/product-service
@@ -71,6 +91,8 @@ services:
     ports:
       - 9901:9901
     restart: on-failure
+    networks:
+      - ecomnet
     depends_on:
       - config-server
       - discovery-server
@@ -78,3 +100,10 @@ services:
     command: ./wait-for-it.sh discovery-server:8761 -- java -jar app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
+
+volumes:
+  pgdata:
+
+networks:
+  ecomnet:
+    driver: overlay
