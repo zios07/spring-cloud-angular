@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-server-deployment
+  labels:
+    app: discovery-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-server
+  template:
+    metadata:
+      labels:
+        app: discovery-server
+    spec:
+      containers:
+      - name: discovery-server
+        image: zios07/discovery-server
+        ports:
+        - containerPort: 8761
+        resources:
+          limits:
+            cpu: ".1"
+            memory: "256Mi"
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: prod
+ 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-server-service
+spec:
+  selector:
+    app: discovery-server
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8761
+    targetPort: 8761

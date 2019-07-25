@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service-deployment
+  labels:
+    app: product-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: product-service
+  template:
+    metadata:
+      labels:
+        app: product-service
+    spec:
+      containers:
+      - name: product-service
+        image: zios07/product-service
+        ports:
+        - containerPort: 9901
+        resources:
+          limits:
+            cpu: ".5"
+            memory: "256Mi"
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: prod
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service-service
+spec:
+  selector:
+    app: product-service
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 9901
+    targetPort: 9901

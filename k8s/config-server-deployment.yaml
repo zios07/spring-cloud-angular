@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server-deployment
+  labels:
+    app: config-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+      - name: config-server
+        image: zios07/config-server
+        ports:
+        - containerPort: 8888
+        resources:
+          limits:
+            cpu: ".1"
+            memory: "256Mi"
+ 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server-service
+spec:
+  selector:
+    app: config-server
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 8888
+    targetPort: 8888

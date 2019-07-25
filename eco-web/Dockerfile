@@ -6,7 +6,7 @@ RUN apk update && \
     apk add git
 RUN npm install
 COPY . .
-RUN npm run -q build
+RUN npm run -q build --prod
 
 FROM nginx
 EXPOSE 80

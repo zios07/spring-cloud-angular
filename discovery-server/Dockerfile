@@ -8,4 +8,4 @@ COPY ./wait-for-it.sh /wait-for-it.sh
 
 RUN chmod +x /wait-for-it.sh
 
-CMD [ "java", "-jar", "app.jar" ]
+CMD [ "./wait-for-it.sh", "config-server:8888", "--", "java", "-jar", "app.jar" ]

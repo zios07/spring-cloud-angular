@@ -10,66 +10,51 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root123
       POSTGRES_DB: ecomapp
-    volumes:
-      - pgdata:/var/lib/postgresql/data
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
-  
+
   discovery-server:
     image: zios07/discovery-server
     container_name: discovery-server
-    build: 
-      context: ./discovery-server
     restart: on-failure
     ports:
       - 8761:8761
     depends_on:
       - config-server
-    command: ./wait-for-it.sh config-server:8888 -- java -jar ./app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
-
+  
   edge-server:
     image: zios07/edge-server
     container_name: edge-server
-    build: 
-      context: ./edge-server
     restart: on-failure
     ports:
       - 8765:8765
     depends_on:
       - config-server
       - discovery-server
-    command: ./wait-for-it.sh discovery-server:8761 -- java -jar ./app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
 
   config-server:
     image: zios07/config-server
     container_name: config-server
-    build: 
-      context: ./config-server
     restart: always
     ports:
       - 8888:8888
-
+  
   web:
     image: zios07/ecom-web
     container_name: ecom-web
-    build: 
-      context: ./eco-web
-      dockerfile: Dockerfile-staging
     ports:
       - 80:80
 
   product-service:
     image: zios07/product-service
     container_name: product-service
-    build: 
-      context: ./eco-back
     ports:
       - 9901:9901
     restart: on-failure
@@ -77,9 +62,5 @@ services:
       - config-server
       - discovery-server
       - postgres
-    command: ./wait-for-it.sh discovery-server:8761 -- java -jar app.jar
     environment: 
       SPRING_PROFILES_ACTIVE: staging
-
-volumes:
-  pgdata:
