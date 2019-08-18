@@ -15,26 +15,27 @@ spec:
         app: mysql
     spec:
       containers:
-        - name: mysql
-          image: mysql
-          ports:
-          - containerPort: 3306
-          resources:
-            limits:
-              cpu: ".5"
-              memory: "256Mi"
-          env:
+      - name: mysql
+        image: mysql
+        ports:
+        - containerPort: 3306
+        env:
           - name: MYSQL_ROOT_PASSWORD
             value: root
           - name: MYSQL_DATABASE
-            value: ecomapp
+            value: mydatabase
+        resources:
+          limits:
+            cpu: "1"
+            memory: "256Mi"
+
  
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-service
+  name: db-service
 spec:
   selector:
     app: mysql

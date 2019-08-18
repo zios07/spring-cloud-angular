@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: root
+    password: postgres
     url: jdbc:postgresql://localhost:5432/ecomapp
-    username: root
+    username: postgres
   jpa:
     show-sql: true
     hibernate:
