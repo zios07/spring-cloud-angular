@@ -1,0 +1,6 @@
+server:
+  port: 9902
+
+queue:
+  attachment:
+    name: AttachmentQueue

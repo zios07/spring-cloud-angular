@@ -1,6 +1,10 @@
 server:
   port: 9901
 
+queue:
+  attachment:
+    name: AttachmentQueue
+    
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
