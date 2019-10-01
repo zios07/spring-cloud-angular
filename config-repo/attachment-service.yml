@@ -6,6 +6,7 @@ spring:
     mongodb:
       username: root
       password: root
+      host: localhost
 
   rabbitmq:
     host: localhost
