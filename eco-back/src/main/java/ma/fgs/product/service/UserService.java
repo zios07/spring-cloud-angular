@@ -46,9 +46,9 @@ public class UserService implements IUserService {
 
 	@Override
 	public User findUser(long id) throws NotFoundException {
-		if (!repo.exists(id))
+		if (!repo.existsById(id))
 			throw new NotFoundException("USER.NOT.FOUND", "No user found with id: " + id);
-		return repo.findOne(id);
+		return repo.findById(id).get();
 	}
 
 	@Override
@@ -64,9 +64,9 @@ public class UserService implements IUserService {
 
 	@Override
 	public void deleteUser(long id) throws NotFoundException {
-		if (!repo.exists(id))
+		if (!repo.existsById(id))
 			throw new NotFoundException("USER.NOT.FOUND", "No user found with id: " + id);
-		repo.delete(id);
+		repo.deleteById(id);
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class UserService implements IUserService {
 
 	@Override
 	public User updateUser(User user) throws NotFoundException {
-		if (!repo.exists(user.getId()))
+		if (!repo.existsById(user.getId()))
 			throw new NotFoundException("USER.NOT.FOUND", "No user found with id: " + user.getId());
 		return repo.save(user);
 	}

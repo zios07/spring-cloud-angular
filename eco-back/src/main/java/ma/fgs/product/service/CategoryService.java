@@ -22,23 +22,23 @@ public class CategoryService implements ICategoryService {
 
   @Override
   public Category updateCategory(Category category) throws NotFoundException {
-    if (!repo.exists(category.getId()))
+    if (!repo.existsById(category.getId()))
       throw new NotFoundException("CATEGORY.UPDATE.ERROR", "Category not found : " + category.getId());
     return repo.save(category);
   }
 
   @Override
   public void deleteCategory(Long id) throws NotFoundException {
-    if (!repo.exists(id))
+    if (!repo.existsById(id))
       throw new NotFoundException("CATEGORY.UPDATE.ERROR", "Category not found : " + id);
-    repo.delete(id);
+    repo.deleteById(id);
   }
 
   @Override
   public Category findCategory(Long id) throws NotFoundException {
-    if (!repo.exists(id))
+    if (!repo.existsById(id))
       throw new NotFoundException("CATEGORY.UPDATE.ERROR", "Category not found : " + id);
-    return repo.findOne(id);
+    return repo.findById(id).get();
   }
 
   @Override

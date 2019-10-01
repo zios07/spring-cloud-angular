@@ -23,9 +23,9 @@ public class AccountService implements IAccountService {
 
 	@Override
 	public Account findAccount(long id) throws NotFoundException {
-		if(!repo.exists(id))
+		if(!repo.existsById(id))
 			throw new NotFoundException("code", "message");
-		return repo.findOne(id);
+		return repo.findById(id).get();
 	}
 
 	@Override
@@ -35,9 +35,9 @@ public class AccountService implements IAccountService {
 
 	@Override
 	public void deleteAccount(long id) throws NotFoundException {
-		if(!repo.exists(id))
+		if(!repo.existsById(id))
 			throw new NotFoundException("code", "message");
-		repo.delete(id);
+		repo.deleteById(id);
 	}
 
 	@Override

@@ -16,9 +16,9 @@ public class CartProductService implements ICartProductService {
 
 	@Override
 	public void deleteCartProduct(Long id) throws NotFoundException {
- 		if(!cartProductRepo.exists(id))
+ 		if(!cartProductRepo.existsById(id))
 			throw new NotFoundException("NOT.FOUND", "Cart product not found");
- 		CartProduct cp = cartProductRepo.findOne(id);
+ 		CartProduct cp = cartProductRepo.findById(id).get();
 		cartProductRepo.delete(cp);
 	}
 	

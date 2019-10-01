@@ -39,17 +39,17 @@ public class ProductService implements IProductService {
 
     @Override
     public Product findProduct(String id) throws NotFoundException {
-        if (!repo.exists(id))
+        if (!repo.existsById(id))
             throw new NotFoundException("PRODUCT.FIND.ERROR", "Product does not exist :" + id);
         Set<ProductImage> images = productImageRepo.findByProductId(id);
-        Product product = repo.findOne(id);
+        Product product = repo.findById(id).get();
         product.setImages(images);
         return product;
     }
 
     @Override
     public Page<Product> findAllProducts(int page, int size) {
-        Page<Product> products = repo.findAll(new PageRequest(page, size));
+        Page<Product> products = repo.findAll(PageRequest.of(page, size));
         List<ProductImage> mainImages = productImageRepo.findMainImages();
         products.getContent().stream().forEach(product -> {
             product.setImages(getMainImageForProduct(mainImages, product));
@@ -59,9 +59,9 @@ public class ProductService implements IProductService {
 
     @Override
     public void deleteProduct(String id) throws NotFoundException {
-        if (!repo.exists(id))
+        if (!repo.existsById(id))
             throw new NotFoundException("PRODUCT.DELETE.ERROR", "Product does not exist :" + id);
-        repo.delete(id);
+        repo.deleteById(id);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class ProductService implements IProductService {
             if (!brandPredicates.isEmpty())
                 return cb.and(new Predicate[]{andPredicate, orPredicate});
             return cb.and(new Predicate[]{andPredicate});
-        }, new PageRequest(page, size));
+        }, PageRequest.of(page, size));
 
         if (products.getContent() != null) {
             List<ProductImage> mainImages = productImageRepo.findMainImages();

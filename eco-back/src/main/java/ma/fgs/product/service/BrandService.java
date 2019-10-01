@@ -23,9 +23,9 @@ public class BrandService implements IBrandService {
 
 	@Override
 	public Brand findBrand(long id) throws NotFoundException {
-		if(!repo.exists(id))
+		if(!repo.existsById(id))
 			throw new NotFoundException("code", "message");
-		return repo.findOne(id);
+		return repo.findById(id).get();
 	}
 
 	@Override
@@ -35,9 +35,9 @@ public class BrandService implements IBrandService {
 
 	@Override
 	public void deleteBrand(long id) throws NotFoundException {
-		if(!repo.exists(id))
+		if(!repo.existsById(id))
 			throw new NotFoundException("code", "message");
-		repo.delete(id);
+		repo.deleteById(id);
 	}
 
 	@Override

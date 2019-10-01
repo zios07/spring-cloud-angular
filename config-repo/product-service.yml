@@ -20,7 +20,8 @@ spring:
     properties:
         hibernate:
             dialect: org.hibernate.dialect.PostgreSQL94Dialect
-
+  main:
+    allow-bean-definition-overriding: true
 queue:
   attachment:
     name: AttachmentQueue

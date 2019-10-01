@@ -1,5 +1,12 @@
 package ma.fgs.product.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import ma.fgs.product.domain.Cart;
 import ma.fgs.product.domain.CartProduct;
 import ma.fgs.product.domain.User;
@@ -9,12 +16,6 @@ import ma.fgs.product.repository.CartRepository;
 import ma.fgs.product.repository.UserRepository;
 import ma.fgs.product.service.api.ICartService;
 import ma.fgs.product.service.exception.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CartService implements ICartService {
@@ -103,7 +104,7 @@ public class CartService implements ICartService {
 					if (cartProduct.getQuantity() > 1)
 						cartProduct.setQuantity(cartProduct.getQuantity() - 1);
 					else {
-						cartProductRepository.delete(cartProduct.getId());
+						cartProductRepository.deleteById(cartProduct.getId());
 					}
 				}
 			});
@@ -115,9 +116,9 @@ public class CartService implements ICartService {
 
 	@Override
 	public Cart findCart(long id) throws NotFoundException {
-		if (!repo.exists(id))
+		if (!repo.existsById(id))
 			throw new NotFoundException("code", "message");
-		return repo.findOne(id);
+		return repo.findById(id).get();
 	}
 
 	@Override
@@ -127,9 +128,9 @@ public class CartService implements ICartService {
 
 	@Override
 	public void deleteCart(long id) throws NotFoundException {
-		if (!repo.exists(id))
+		if (!repo.existsById(id))
 			throw new NotFoundException("code", "message");
-		repo.delete(id);
+		repo.deleteById(id);
 	}
 
 	@Override
@@ -177,7 +178,7 @@ public class CartService implements ICartService {
 	}
 
 	private Cart getUserCart(Long id) {
-		User user = userRepository.findOne(id);
+		User user = userRepository.findById(id).get();
 		Cart cart = null;
 		if (user != null) {
 			cart = user.getCart();
