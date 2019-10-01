@@ -2,10 +2,6 @@ package com.mezosproject.model;
 
 import java.util.Map;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,9 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Attachment {
 
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
-	@Column(name = "PR_KEY")
 	private String id;
 
 	private String name;
