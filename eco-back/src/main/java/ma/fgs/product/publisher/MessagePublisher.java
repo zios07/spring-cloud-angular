@@ -5,7 +5,7 @@ import org.springframework.messaging.MessageChannel;
 
 public interface MessagePublisher {
 
-	@Output("AttachmentBiding")
+	@Output("AttachmentBinding")
 	public MessageChannel publishAttachment();
 
 }
