@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.OPTIONS)
 						.permitAll()
 					.anyRequest()
-						.permitAll()
+						.authenticated()
 			.and()
 				.addFilter(jwtAuthenticationFilter())
 				.addFilter(new JwtAuthorizationFilter(authenticationManager()));

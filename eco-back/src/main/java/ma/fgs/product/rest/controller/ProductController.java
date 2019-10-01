@@ -1,6 +1,6 @@
 package ma.fgs.product.rest.controller;
 
-import java.util.List;
+import java.io.IOException;
 
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import ma.fgs.product.domain.Product;
 import ma.fgs.product.domain.dto.ProductSearchDto;
-import ma.fgs.product.proxy.AttachmentProxy;
-import ma.fgs.product.publisher.AttachmentPublisher;
 import ma.fgs.product.service.api.IProductService;
 import ma.fgs.product.service.exception.NotFoundException;
 
@@ -28,17 +27,14 @@ import ma.fgs.product.service.exception.NotFoundException;
 public class ProductController {
 
 	private IProductService service;
-	private AttachmentPublisher attachmentPublisher;
-	
-	public ProductController(IProductService service, AttachmentPublisher attachmentPublisher) {
+
+	public ProductController(IProductService service) {
 		this.service = service;
-		this.attachmentPublisher = attachmentPublisher;
 	}
 
 	@GetMapping(value = "{id}")
 	public ResponseEntity<Product> findProduct(@PathVariable String id) throws NotFoundException {
 		Product product = service.findProduct(id);
-		publishAttachment(product.getAttachments());
 		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
@@ -48,11 +44,13 @@ public class ProductController {
 		Page<Product> products = service.findAllProducts(page, size);
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-		Product savedProduct = service.addProduct(product);
-		return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
+	public ResponseEntity<Product> saveProduct(
+			@RequestParam(name = "attachments", required = true) MultipartFile[] attachments,
+			@RequestParam(name = "product", required = true) Product product) throws IOException {
+		product = service.addProduct(product, attachments);
+		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "{id}")
@@ -68,7 +66,4 @@ public class ProductController {
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 
-	private void publishAttachment(List<AttachmentProxy> attachments) {
-		attachmentPublisher.send(attachments);
-	}
 }

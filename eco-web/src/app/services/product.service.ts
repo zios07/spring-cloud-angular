@@ -1,12 +1,9 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http"
-import { AuthHttp } from 'angular2-jwt';
 import "rxjs/add/operator/map";
+import { environment } from "../../environments/environment";
 import { CartDto } from "../dto/cartDto";
 import { AuthenticationService } from "./authentication.service";
-import { Product } from '../domain/product';
-import { environment } from "../../environments/environment";
-import { UUID } from 'angular2-uuid';
 
 @Injectable()
 export class ProductService {
@@ -26,11 +23,11 @@ export class ProductService {
             .map(response => response);
     }
 
-    addProduct(product) {
-        product.uuid = localStorage.getItem('uuid');
-        return this.http.post(this.url + "/api/v1/products", product)
-            .map(response => response);
-    }
+    // addProduct(product) {
+    //     product.uuid = localStorage.getItem('uuid');
+    //     return this.http.post(this.url + "/api/v1/products", product)
+    //         .map(response => response);
+    // }
 
     addProductToCart(product, username) {
         let dto = new CartDto(username, product);
@@ -54,14 +51,14 @@ export class ProductService {
             .map((response: any) => response.content);
     }
 
-    uploadPhotos(photos) {
+    save(product, photos) {
         let fd = new FormData();
-        fd.append("uuid", localStorage.getItem("uuid"));
+        fd.append("product", JSON.stringify(product));
         for(let i = 0 ; i < photos.length ; i++ ) {
             var blob = new Blob([photos[i]], { type: "application/json"});
-            fd.append('photos', blob , photos[i].name);
+            fd.append('attachments', blob , photos[i].name);
         }
-        return this.http.post(this.url + "/api/v1/products/add/photo/upload", fd)
+        return this.http.post(this.url + "/api/v1/products", fd)
             .map(response => response);
     }
 

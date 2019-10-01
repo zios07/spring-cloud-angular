@@ -1,19 +1,25 @@
 package ma.fgs.product.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.criteria.Predicate;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import ma.fgs.product.domain.Product;
 import ma.fgs.product.domain.dto.ProductSearchDto;
+import ma.fgs.product.proxy.AttachmentProxy;
+import ma.fgs.product.publisher.AttachmentPublisher;
 import ma.fgs.product.repository.ProductRepository;
 import ma.fgs.product.service.api.IProductService;
 import ma.fgs.product.service.exception.NotFoundException;
@@ -22,16 +28,27 @@ import ma.fgs.product.service.exception.NotFoundException;
 public class ProductService implements IProductService {
 
 	private ProductRepository repo;
+	private AttachmentPublisher attachmentPublisher;
 
-	public ProductService(ProductRepository repo) {
+	public ProductService(ProductRepository repo, AttachmentPublisher attachmentPublisher) {
 		this.repo = repo;
+		this.attachmentPublisher = attachmentPublisher;
 	}
 
 	@Override
-	public Product addProduct(Product product) {
+	public Product addProduct(Product product, MultipartFile[] files) throws IOException {
 		product.setAddedDate(new Date());
 		Product createdProduct = repo.save(product);
+		publishAttachment(product, files);
 		return createdProduct;
+	}
+
+	public void publishAttachment(Product product, MultipartFile[] files) throws IOException {
+		List<AttachmentProxy> attachments = new ArrayList<>();
+		for (MultipartFile file : files) {
+			attachments.add(attachmentFromMultipartFile(product, file));
+		}
+		attachmentPublisher.send(attachments);
 	}
 
 	@Override
@@ -97,6 +114,18 @@ public class ProductService implements IProductService {
 		}, PageRequest.of(page, size));
 
 		return products;
+	}
+
+	private AttachmentProxy attachmentFromMultipartFile(Product product, MultipartFile file) throws IOException {
+		AttachmentProxy attachment = new AttachmentProxy();
+		attachment.setClassName(product.getClass().getName());
+		attachment.setContent(file.getBytes());
+		attachment.setEntityId(product.getId());
+		attachment.setExtension(FilenameUtils.getExtension(file.getName()));
+		attachment.setMimeType(file.getContentType());
+		attachment.setDescription(null);
+		attachment.setName(file.getOriginalFilename());
+		return attachment;
 	}
 
 }
