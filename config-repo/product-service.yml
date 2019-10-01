@@ -7,6 +7,7 @@ spring:
     port: 5672
     password: root
     username: root
+    virtual-host: /
   datasource:
     driver-class-name: org.postgresql.Driver
     password: postgres
