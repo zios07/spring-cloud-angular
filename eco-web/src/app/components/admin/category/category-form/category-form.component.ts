@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../../../../domain/Category';
+import { Category } from '../../../../domain/category';
 import { CategoryService } from '../../../../services/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

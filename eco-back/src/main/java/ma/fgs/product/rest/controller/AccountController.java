@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ma.fgs.product.service.api.IAccountService;
 import ma.fgs.product.domain.Account;
+import ma.fgs.product.service.api.IAccountService;
 import ma.fgs.product.service.exception.NotFoundException;
 
 @RestController

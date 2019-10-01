@@ -50,7 +50,7 @@ export class ProductComponent implements OnInit {
     this.$products = this.productService.loadProducts(page, size);
     this.$products.subscribe((result: any) => {
       this.products = result;
-      this.setMainImageForeachProduct();
+      // this.setMainImageForeachProduct();
       this.updateProductAvailability(result);
     })
   }
@@ -89,7 +89,7 @@ export class ProductComponent implements OnInit {
   onSearch() {
     this.productService.search(this.productSearchDto, this.currentPage, this.size).subscribe((result: any) => {
       this.products = result;
-      this.setMainImageForeachProduct();
+      // this.setMainImageForeachProduct();
       this.updateProductAvailability(result);
     }, error => {
       this.toastr.error(String(error));
@@ -119,15 +119,4 @@ export class ProductComponent implements OnInit {
     })
   }
 
-  setMainImageForeachProduct() {
-    if(this.products) {
-      this.products.forEach(product => {
-        if(product.images)
-          product.images.forEach(image => {
-            if(image.main) 
-              product.mainImage = image;
-          });
-      });
-    }
-  }
 }

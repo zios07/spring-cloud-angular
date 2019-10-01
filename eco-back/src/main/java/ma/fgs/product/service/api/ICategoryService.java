@@ -1,9 +1,9 @@
 package ma.fgs.product.service.api;
 
+import java.util.List;
+
 import ma.fgs.product.domain.Category;
 import ma.fgs.product.service.exception.NotFoundException;
-
-import java.util.List;
 
 public interface ICategoryService {
 

@@ -7,7 +7,7 @@ import { BrandService } from '../../../../services/brand.service'
 import 'rxjs/add/operator/take';
 import { Brand } from '../../../../domain/brand';
 import { UUID } from 'angular2-uuid';
-import { Category } from '../../../../domain/Category';
+import { Category } from '../../../../domain/category';
 import { CategoryService } from '../../../../services/category.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class AddProductComponent implements OnInit {
 	brands: Array<Brand> = [];
 	categories: Array<Category> = [];
 	product: Product = new Product();
+	attachments: any[] = [];
 
 	constructor(private router: Router,
 				private route: ActivatedRoute,
@@ -39,15 +40,17 @@ export class AddProductComponent implements OnInit {
 			if (event.files.length < 3 || event.files.length > 7)
 				this.toastr.error("You must select between 3 and 7 images");
 			else{
-				this.productService.uploadPhotos(event.files).subscribe(result => {
-					console.log(result);
-				}, error => {
-					this.toastr.error(String(error));
-				});
+				// this.productService.uploadPhotos(event.files).subscribe(result => {
+				// 	console.log(result);
+				// }, error => {
+				// 	this.toastr.error(String(error));
+				// });
+				this.attachments.push(event.files);
 			}
 	}
 
 	saveProduct(){
+		this.product.attachments = this.attachments;
 		this.productService.addProduct(this.product).subscribe(result => {
 			this.toastr.success('Product added successfully !');
 			this.router.navigate(['/admin/products']);

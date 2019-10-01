@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../../services/category.service';
 import { ToastrService } from 'ngx-toastr';
-import { Category } from '../../../../domain/Category';
+import { Category } from '../../../../domain/category';
 import { DataTableResource } from 'angular5-data-table';
 
 @Component({

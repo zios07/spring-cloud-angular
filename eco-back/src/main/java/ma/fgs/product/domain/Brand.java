@@ -1,9 +1,10 @@
 package ma.fgs.product.domain;
 
+import java.util.Arrays;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Arrays;
 
 @Entity
 public class  Brand {

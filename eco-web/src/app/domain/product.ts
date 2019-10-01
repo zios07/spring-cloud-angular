@@ -1,5 +1,5 @@
 import { Brand } from "./brand";
-import { Category } from "./Category";
+import { Category } from "./category";
 
 export class Product{
     id: string;
@@ -10,7 +10,7 @@ export class Product{
     price: number;
     brand: Brand;
     uuid: string;
-    images: any;
+    attachments: any;
     mainImage: any;
     category: Category;
 

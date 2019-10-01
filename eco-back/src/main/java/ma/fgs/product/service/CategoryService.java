@@ -1,13 +1,14 @@
 package ma.fgs.product.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import ma.fgs.product.domain.Category;
 import ma.fgs.product.repository.CategoryRepository;
 import ma.fgs.product.service.api.ICategoryService;
 import ma.fgs.product.service.exception.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CategoryService implements ICategoryService {

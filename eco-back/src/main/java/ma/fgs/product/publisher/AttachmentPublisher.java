@@ -12,7 +12,7 @@ public class AttachmentPublisher {
 		this.publisher = publisher;
 	}
 
-	public void send(String message) {
+	public void send(Object message) {
 		publisher.publishAttachment().send(MessageBuilder.withPayload(message).build());
 	}
 
