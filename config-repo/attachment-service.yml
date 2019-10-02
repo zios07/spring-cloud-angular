@@ -6,6 +6,7 @@ spring:
     mongodb:
       username: root
       password: root
+      port: 27017
       host: localhost
       database: test
 

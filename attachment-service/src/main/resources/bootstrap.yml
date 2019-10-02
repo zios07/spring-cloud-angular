@@ -1,3 +1,10 @@
 spring:
   application:
     name: attachment-service
+  data:
+    mongodb:
+      username: rootxxx
+      password: root
+      port: 27017
+      host: localhost
+      database: test
