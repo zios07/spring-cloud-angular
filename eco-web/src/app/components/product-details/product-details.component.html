@@ -3,9 +3,9 @@
     <div class="card-wrapper">
         <h2 class="text-center mb-5"></h2>
         <div class="card">
-            <!-- <img *ngIf="product.mainImage" src="data:image/jpeg;base64,{{product.mainImage.content}}" alt="" class="card-img-top">
-            <img *ngIf="!product.mainImage" src="../../../assets/img/image-not-found.jpg" alt="Product image" class="card-img-top"> -->
-            <p-galleria [images]="images" panelWidth="500" panelHeight="313" [showCaption]="true"></p-galleria>
+            <img *ngIf="product.mainImage" src="{{product.mainImage.source}}" alt="" class="card-img-top">
+            <img *ngIf="!product.mainImage" src="../../../assets/img/image-not-found.jpg" alt="Product image" class="card-img-top">
+            <!-- <p-galleria [images]="attachments" panelWidth="500" panelHeight="313" [showCaption]="true"></p-galleria> -->
             <div class="card-body">
                 <h4 class="card-title"> {{ product.label }}</h4>
                 <div class="card-text">

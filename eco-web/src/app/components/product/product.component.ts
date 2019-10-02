@@ -23,11 +23,11 @@ export class ProductComponent implements OnInit {
   connectedUserCart;
   $products;
 
-  constructor(private productService: ProductService, 
-              private authService: AuthenticationService,
-              private toastr:ToastrService,
-              private brandService: BrandService,
-              private cartService: CartService) { }
+  constructor(private productService: ProductService,
+    private authService: AuthenticationService,
+    private toastr: ToastrService,
+    private brandService: BrandService,
+    private cartService: CartService) { }
 
   ngOnInit() {
     this.username = this.authService.getConnectedUsername();
@@ -40,9 +40,9 @@ export class ProductComponent implements OnInit {
     this.cartService.loadCart(this.username).subscribe((result: any) => {
       this.connectedUserCart = result;
     }, error => {
-        if(error.status !== 404)
-          this.toastr.error(error);
-      }
+      if (error.status !== 404)
+        this.toastr.error(error);
+    }
     );
   }
 
@@ -56,13 +56,13 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(product) {
-    let username:string = this.authService.getConnectedUsername();
+    let username: string = this.authService.getConnectedUsername();
     this.productService.addProductToCart(product, username).subscribe(result => {
       this.toastr.success("Product added to cart");
       this.products.forEach(p => {
         this.cartService.loadCart(username).subscribe((cart: any) => {
           cart.products.forEach(cartProduct => {
-            if(cartProduct.product.id == product.id && cartProduct.quantity >= product.qteStock) {
+            if (cartProduct.product.id == product.id && cartProduct.quantity >= product.qteStock) {
               product.unavailable = true;
             }
           });
@@ -74,7 +74,7 @@ export class ProductComponent implements OnInit {
   }
 
   loadBrands() {
-    this.brandService.loadBrands().subscribe((result:any) => {
+    this.brandService.loadBrands().subscribe((result: any) => {
       this.brands = result;
     }, error => {
       this.toastr.error(String(error));
@@ -104,19 +104,21 @@ export class ProductComponent implements OnInit {
   }
 
   updateProductAvailability(productList) {
-    let cartProducts = this.connectedUserCart.products;
-    cartProducts.forEach((cp : any) => {
-      let pCart:Product = cp.product;
-      if(productList) {
-        productList.forEach(product => {
-          if(pCart.id == product.id) {
-            if(product.qteStock <= cp.quantity) {
-              product.unavailable = true;
+    if (this.connectedUserCart) {
+      let cartProducts = this.connectedUserCart.products;
+      cartProducts.forEach((cp: any) => {
+        let pCart: Product = cp.product;
+        if (productList) {
+          productList.forEach(product => {
+            if (pCart.id == product.id) {
+              if (product.qteStock <= cp.quantity) {
+                product.unavailable = true;
+              }
             }
-          }   
-        });
-      }
-    })
+          });
+        }
+      })
+    }
   }
 
 }
