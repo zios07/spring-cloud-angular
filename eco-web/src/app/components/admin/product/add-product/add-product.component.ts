@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UUID } from 'angular2-uuid';
 import { ToastrService } from 'ngx-toastr';
-import 'rxjs/add/operator/take';
 import { Brand } from '../../../../domain/brand';
 import { Category } from '../../../../domain/category';
 import { Product } from '../../../../domain/product';
 import { BrandService } from '../../../../services/brand.service';
 import { CategoryService } from '../../../../services/category.service';
 import { ProductService } from '../../../../services/product.service';
+
 
 @Component({
 	selector: 'app-add-product',
@@ -32,7 +31,6 @@ export class AddProductComponent implements OnInit {
 	ngOnInit() {
 		this.loadBrands();
 		this.loadCategories();
-		this.generateUUID();
 	}
 
 	uploadPhotos(event) {
@@ -62,7 +60,7 @@ export class AddProductComponent implements OnInit {
 			this.loadProductToEdit();
 		}, error => {
 			this.toastr.error(String(error));
-		})
+		});
 	}
 
 	loadCategories() {
@@ -71,13 +69,13 @@ export class AddProductComponent implements OnInit {
 			this.loadProductToEdit();
 		}, error => {
 			this.toastr.error(String(error));
-		})
+		});
 	}
 
 	loadProductToEdit() {
 		const id = this.route.snapshot.paramMap.get('id');
 		if (id) {
-			this.productService.getProduct(id).take(1).subscribe((result: Product) => {
+			this.productService.getProduct(id).subscribe((result: Product) => {
 				this.product = result;
 				// There has to be a better way to do the 2 way binding ...
 				if (this.brands) {
@@ -87,7 +85,7 @@ export class AddProductComponent implements OnInit {
 						if (br.id === p.brand.id) {
 							match = br;
 						}
-					})
+					});
 					this.product.brand = match;
 				}
 			}, error => {
@@ -95,10 +93,4 @@ export class AddProductComponent implements OnInit {
 			});
 		}
 	}
-
-	generateUUID() {
-		localStorage.removeItem('uuid');
-		localStorage.setItem('uuid', UUID.UUID());
-	}
-
 }

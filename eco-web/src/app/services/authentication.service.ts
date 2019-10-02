@@ -1,29 +1,27 @@
-import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import 'rxjs/add/operator/map'
-import { JwtHelper } from "angular2-jwt";
-import { Router } from "@angular/router";
-import { environment } from "../../environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
 
-    private url:string = environment.API_URL ;
-    jwtHelper: JwtHelper = new JwtHelper();
+    private url: string = environment.API_URL;
+    jwtHelper: JwtHelperService = new JwtHelperService();
 
-    constructor(private http:Http, private router: Router){}
+    constructor(private http: HttpClient, private router: Router) { }
 
-    authenticate(credentials){
-        return this.http.post(this.url+'/api/v1/authentication/authenticate', credentials)
-            .map(response => response);
+    authenticate(credentials) {
+        return this.http.post(this.url + '/api/v1/authentication/authenticate', credentials);
     }
 
-    isLoggedIn(){
-        let jwtHelper = new JwtHelper();
-        let token = localStorage.getItem('token');
-        if(!token)
-          return false;
-        let isExpired = jwtHelper.isTokenExpired(token);
+    isLoggedIn() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            return false;
+        }
+        const isExpired = this.jwtHelper.isTokenExpired(token);
         return !isExpired;
     }
 
@@ -32,15 +30,16 @@ export class AuthenticationService {
         this.router.navigate(['/']);
     }
 
-    getConnectedUsername(){
+    getConnectedUsername() {
         return localStorage.getItem('username');
     }
 
     isAdmin() {
-        let token = localStorage.getItem('token');
-        let decodedToken:any = this.jwtHelper.decodeToken(token);
-        if(decodedToken.role && decodedToken.role.indexOf('ADMIN') > -1)
+        const token = localStorage.getItem('token');
+        const decodedToken: any = this.jwtHelper.decodeToken(token);
+        if (decodedToken.role && decodedToken.role.indexOf('ADMIN') > -1) {
             return true;
+        }
         return false;
     }
 

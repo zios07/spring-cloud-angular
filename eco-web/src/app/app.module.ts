@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataTableModule } from 'angular5-data-table';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -79,7 +78,6 @@ import { UserService } from './services/user.service';
 		TooltipModule.forRoot(),
 		ModalModule.forRoot(),
 		FormsModule,
-		DataTableModule,
 		HttpClientModule,
 		HttpClientModule,
 		ToastrModule.forRoot(),

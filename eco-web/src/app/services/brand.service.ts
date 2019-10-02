@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import "rxjs/add/operator/map";
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -10,23 +9,19 @@ export class BrandService {
 
 	constructor(private http: HttpClient) { }
 
-  	loadBrands() {
-	  	return this.http.get(this.url + "/api/v1/brand")
-		  	.map(response => response);
-  	}
+	loadBrands() {
+		return this.http.get(this.url + '/api/v1/brand');
+	}
 
 	saveBrand(brand) {
-		return this.http.post(this.url + "/api/v1/brand", brand)
-			.map(response => response);
+		return this.http.post(this.url + '/api/v1/brand', brand);
 	}
 
 	deleteBrand(id) {
-		return this.http.delete(this.url + "/api/v1/brand/" + id )
-			.map(response => response);
+		return this.http.delete(this.url + '/api/v1/brand/' + id);
 	}
 
 	getBrand(id) {
-		return this.http.get(this.url + "/api/v1/brand/" + id)
-			.map(response => response);
+		return this.http.get(this.url + '/api/v1/brand/' + id);
 	}
 }
