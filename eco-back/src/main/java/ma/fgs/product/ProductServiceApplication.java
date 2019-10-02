@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 
 import ma.fgs.product.domain.Role;
@@ -16,6 +17,7 @@ import ma.fgs.product.repository.RoleRepository;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableBinding(MessagePublisher.class)
+@EnableFeignClients
 public class ProductServiceApplication implements CommandLineRunner {
 
 	@Autowired

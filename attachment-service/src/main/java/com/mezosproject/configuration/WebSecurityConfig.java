@@ -1,31 +1,19 @@
-package ma.fgs.product.configuration;
-
-import static ma.fgs.product.security.utils.SecurityConstants.LOGIN_URL;
-import static ma.fgs.product.security.utils.SecurityConstants.REGISTRATION_URL;
+package com.mezosproject.configuration;
 
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import ma.fgs.product.security.JwtAuthenticationFilter;
-import ma.fgs.product.security.JwtAuthorizationFilter;
-import ma.fgs.product.security.utils.UserDetailsServiceImpl;
-import ma.fgs.product.service.AccountService;
-import ma.fgs.product.service.UserService;
-import ma.fgs.product.service.api.IUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -34,59 +22,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors()
-			.and()
-				.csrf()
-					.disable()
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
-				.authorizeRequests()
-					.antMatchers("public/**")
-						.permitAll()
-					.antMatchers(HttpMethod.POST, LOGIN_URL, REGISTRATION_URL)
-						.permitAll()
-					.antMatchers(HttpMethod.OPTIONS)
-						.permitAll()
-					.anyRequest()
-						.permitAll()
-			.and()
-				.addFilter(jwtAuthenticationFilter())
-				.addFilter(new JwtAuthorizationFilter(authenticationManager()));
+		http.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().authorizeRequests().anyRequest().permitAll();
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-		// the user details service and the password encoder to be user in the
-		// authenticated() method of authenticationManager of the JwtAuthentication Filter
-
-		auth.userDetailsService(userDetailsServiceBean())
-		 .passwordEncoder(passwordEncoder());
-
-	}
-
-	@Override
-	public UserDetailsService userDetailsServiceBean() throws Exception {
-		return new UserDetailsServiceImpl(userService());
-	}
-
-	@Bean
-	public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
-		final JwtAuthenticationFilter filter = new JwtAuthenticationFilter();
-		filter.setAuthenticationManager(authenticationManager());
-		filter.setFilterProcessesUrl(LOGIN_URL);
-		return filter;
-	}
-
-	@Bean
-	public AccountService accountService() {
-		return new AccountService();
-	}
-	
-	@Bean
-	public IUserService userService() {
-		return new UserService();
+		auth.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean

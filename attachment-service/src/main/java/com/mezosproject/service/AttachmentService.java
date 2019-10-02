@@ -1,6 +1,7 @@
 package com.mezosproject.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 
@@ -10,6 +11,8 @@ import com.mezosproject.model.Attachment;
 public interface AttachmentService {
 
 	Attachment create(Attachment attachment);
+	
+	List<Attachment> createAll(List<Attachment> attachments);
 
 	Attachment update(Attachment attachment);
 
@@ -23,6 +26,6 @@ public interface AttachmentService {
 
 	List<Attachment> getEntityAttachment(String className, Object id, int page, int size);
 
-	List<Attachment> save(List<Attachment> attachments);
+	List<Attachment> getAttachmentsByMetadata(Map<String, Object> metadata);
 
 }

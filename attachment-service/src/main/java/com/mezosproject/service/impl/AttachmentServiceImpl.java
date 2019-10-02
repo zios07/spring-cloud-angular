@@ -1,6 +1,7 @@
 package com.mezosproject.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -27,6 +28,11 @@ public class AttachmentServiceImpl implements AttachmentService {
 		return attachmentRepository.save(attachment);
 	}
 
+	@Override
+	public List<Attachment> createAll(List<Attachment> attachments) {
+		return attachmentRepository.saveAll(attachments);
+	}
+	
 	@Override
 	public Attachment update(Attachment attachment) {
 		return attachmentRepository.save(attachment);
@@ -62,8 +68,9 @@ public class AttachmentServiceImpl implements AttachmentService {
 	}
 
 	@Override
-	public List<Attachment> save(List<Attachment> attachments) {
-		return attachmentRepository.saveAll(attachments);
+	public List<Attachment> getAttachmentsByMetadata(Map<String, Object> metadata) {
+		// TODO Build search query for the params of metadata map
+		return null;
 	}
 
 }

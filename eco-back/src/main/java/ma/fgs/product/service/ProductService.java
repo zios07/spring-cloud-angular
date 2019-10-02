@@ -11,6 +11,8 @@ import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,18 +23,23 @@ import ma.fgs.product.domain.dto.ProductSearchDto;
 import ma.fgs.product.proxy.AttachmentProxy;
 import ma.fgs.product.publisher.AttachmentPublisher;
 import ma.fgs.product.repository.ProductRepository;
+import ma.fgs.product.rest.feign.AttachmentFeignClient;
 import ma.fgs.product.service.api.IProductService;
 import ma.fgs.product.service.exception.NotFoundException;
 
 @Service
 public class ProductService implements IProductService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductService.class);
+
 	private ProductRepository repo;
 	private AttachmentPublisher attachmentPublisher;
+	private AttachmentFeignClient attachmentFeignClient;
 
-	public ProductService(ProductRepository repo, AttachmentPublisher attachmentPublisher) {
+	public ProductService(ProductRepository repo, AttachmentPublisher attachmentPublisher, AttachmentFeignClient attachmentFeignClient) {
 		this.repo = repo;
 		this.attachmentPublisher = attachmentPublisher;
+		this.attachmentFeignClient = attachmentFeignClient;
 	}
 
 	@Override
@@ -58,6 +65,11 @@ public class ProductService implements IProductService {
 		if (!repo.existsById(id))
 			throw new NotFoundException("PRODUCT.FIND.ERROR", "Product does not exist :" + id);
 		Product product = repo.findById(id).get();
+		try {
+			product.setAttachments(attachmentFeignClient.getAttachmentsByEntity(Product.class.getName(), id));
+		} catch (Exception ex) {
+			LOGGER.error("Could not fetch attachments for product {} : {}", id, ex.getMessage());
+		}
 		return product;
 	}
 
@@ -123,7 +135,7 @@ public class ProductService implements IProductService {
 		attachment.setClassName(product.getClass().getName());
 		attachment.setContent(file.getBytes());
 		attachment.setEntityId(product.getId());
-		attachment.setExtension(FilenameUtils.getExtension(file.getName()));
+		attachment.setExtension(FilenameUtils.getExtension(file.getOriginalFilename()));
 		attachment.setMimeType(file.getContentType());
 		attachment.setDescription(null);
 		attachment.setName(file.getOriginalFilename());

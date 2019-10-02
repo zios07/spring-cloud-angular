@@ -24,7 +24,7 @@ public class AttachmentListener {
 	public void listenToPersonMessages(List<Attachment> attachments) {
 		if (attachments != null && !attachments.isEmpty()) {
 			LOGGER.info("Received attachment list of {} items", attachments.size());
-			attachmentService.save(attachments);
+			attachmentService.createAll(attachments);
 			LOGGER.info("Persisted {} attachments", attachments.size());
 		}
 	}
