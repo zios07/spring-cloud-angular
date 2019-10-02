@@ -23,8 +23,9 @@ public class AttachmentListener {
 	@StreamListener(target = "AttachmentBinding")
 	public void listenToPersonMessages(List<Attachment> attachments) {
 		if (attachments != null && !attachments.isEmpty()) {
-			LOGGER.debug("Received attachment list of {0} items", attachments.size());
+			LOGGER.info("Received attachment list of {} items", attachments.size());
 			attachmentService.save(attachments);
+			LOGGER.info("Persisted {} attachments", attachments.size());
 		}
 	}
 

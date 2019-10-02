@@ -68,7 +68,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-success" (click)="saveProduct()">Save product</button>
+							<button class="btn btn-success" [disabled]="f.invalid" (click)="saveProduct()">Save product</button>
 							<button type="reset" class="btn btn-default" routerLink="/admin/products">Cancel</button>
 						</div>
 

@@ -20,12 +20,12 @@ public class AttachmentPublisher {
 	}
 
 	public void send(List<AttachmentProxy> attachments) {
-		LOGGER.debug("Sending {0} attachments to the broker", attachments.size());
+		LOGGER.info("Sending {} attachments to the broker", attachments.size());
 		boolean sent = publisher.publishAttachment().send(MessageBuilder.withPayload(attachments).build());
 		if(sent) {
-			LOGGER.debug("Successfully sent attachments to broker");
+			LOGGER.info("Successfully sent attachments to broker");
 		} else {
-			LOGGER.debug("Could not send attachments to the broker");
+			LOGGER.info("Could not send attachments to the broker");
 		}
 	}
 
