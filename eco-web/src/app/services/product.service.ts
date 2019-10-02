@@ -47,7 +47,10 @@ export class ProductService {
 
     save(product, photos) {
         const fd = new FormData();
-        fd.append('product', JSON.stringify(product));
+        fd.append('product',
+            new Blob([JSON.stringify(product)], {
+                type: "application/json"
+            }));
         for (let i = 0; i < photos.length; i++) {
             const blob = new Blob([photos[i]], { type: 'application/json' });
             fd.append('attachments', blob, photos[i].name);
