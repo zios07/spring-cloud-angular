@@ -4,11 +4,7 @@ server:
 spring:
   data:
     mongodb:
-      username: root
-      password: root
-      port: 27017
-      host: localhost
-      database: test
+      uri: mongodb://root:root@localhost:27017/?authSource=admin&authMechanism=SCRAM-SHA-1
 
   rabbitmq:
     host: localhost
