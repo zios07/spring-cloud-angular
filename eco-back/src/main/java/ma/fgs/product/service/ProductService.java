@@ -48,7 +48,9 @@ public class ProductService implements IProductService {
 		for (MultipartFile file : files) {
 			attachments.add(attachmentFromMultipartFile(product, file));
 		}
-		attachmentPublisher.send(attachments);
+		if (!attachments.isEmpty()) {
+			attachmentPublisher.send(attachments);
+		}
 	}
 
 	@Override

@@ -1,15 +1,31 @@
 package com.mezosproject.listener;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Component;
+
+import com.mezosproject.model.Attachment;
+import com.mezosproject.service.AttachmentService;
 
 @Component
 public class AttachmentListener {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(AttachmentListener.class);
+	private AttachmentService attachmentService;
+
+	public AttachmentListener(AttachmentService attachmentService) {
+		this.attachmentService = attachmentService;
+	}
+
 	@StreamListener(target = "AttachmentBinding")
-	public void listenToPersonMessages(String message) {
-//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		System.out.println("Received new Attachment  : {0} " + message);
+	public void listenToPersonMessages(List<Attachment> attachments) {
+		if (attachments != null && !attachments.isEmpty()) {
+			LOGGER.debug("Received attachment list of {0} items", attachments.size());
+			attachmentService.save(attachments);
+		}
 	}
 
 }

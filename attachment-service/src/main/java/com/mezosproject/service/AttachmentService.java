@@ -23,4 +23,6 @@ public interface AttachmentService {
 
 	List<Attachment> getEntityAttachment(String className, Object id, int page, int size);
 
+	List<Attachment> save(List<Attachment> attachments);
+
 }

@@ -61,4 +61,9 @@ public class AttachmentServiceImpl implements AttachmentService {
 		return attachmentRepository.findByClassNameAndEntityId(className, id, PageRequest.of(page, size));
 	}
 
+	@Override
+	public List<Attachment> save(List<Attachment> attachments) {
+		return attachmentRepository.saveAll(attachments);
+	}
+
 }
