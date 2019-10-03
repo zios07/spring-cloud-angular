@@ -18,8 +18,7 @@ export class LoginComponent {
     private router: Router) { }
 
   onLogin(credentials) {
-    this.authService.authenticate(credentials).subscribe(result => {
-      const token = result['_body'];
+    this.authService.authenticate(credentials).subscribe(token => {
       if (token) {
         localStorage.setItem('token', token);
         localStorage.setItem('username', credentials.username);

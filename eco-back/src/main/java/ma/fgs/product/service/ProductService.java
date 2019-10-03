@@ -2,6 +2,7 @@ package ma.fgs.product.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,8 @@ public class ProductService implements IProductService {
 	private AttachmentPublisher attachmentPublisher;
 	private AttachmentFeignClient attachmentFeignClient;
 
-	public ProductService(ProductRepository repo, AttachmentPublisher attachmentPublisher, AttachmentFeignClient attachmentFeignClient) {
+	public ProductService(ProductRepository repo, AttachmentPublisher attachmentPublisher,
+			AttachmentFeignClient attachmentFeignClient) {
 		this.repo = repo;
 		this.attachmentPublisher = attachmentPublisher;
 		this.attachmentFeignClient = attachmentFeignClient;
@@ -65,17 +67,14 @@ public class ProductService implements IProductService {
 		if (!repo.existsById(id))
 			throw new NotFoundException("PRODUCT.FIND.ERROR", "Product does not exist :" + id);
 		Product product = repo.findById(id).get();
-		try {
-			product.setAttachments(attachmentFeignClient.getAttachmentsByEntity(Product.class.getName(), id));
-		} catch (Exception ex) {
-			LOGGER.error("Could not fetch attachments for product {} : {}", id, ex.getMessage());
-		}
+		fetchProductsAttachments(Arrays.asList(product));
 		return product;
 	}
 
 	@Override
 	public Page<Product> findAllProducts(int page, int size) {
 		Page<Product> products = repo.findAll(PageRequest.of(page, size));
+		fetchProductsAttachments(products.getContent());
 		return products;
 	}
 
@@ -127,6 +126,7 @@ public class ProductService implements IProductService {
 			return cb.and(new Predicate[] { andPredicate });
 		}, PageRequest.of(page, size));
 
+		fetchProductsAttachments(products.getContent());
 		return products;
 	}
 
@@ -142,4 +142,14 @@ public class ProductService implements IProductService {
 		return attachment;
 	}
 
+	private void fetchProductsAttachments(List<Product> list) {
+		for (Product product : list) {
+			try {
+				product.setAttachments(
+						attachmentFeignClient.getAttachmentsByEntity(Product.class.getName(), product.getId()));
+			} catch (Exception ex) {
+				LOGGER.error("Could not fetch attachments for product {} : {}", product.getId(), ex.getMessage());
+			}
+		}
+	}
 }

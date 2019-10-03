@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../../services/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from '../../../../domain/category';
-import { DataTableResource } from 'angular5-data-table';
 
 @Component({
   selector: 'app-admin-category',
@@ -13,7 +12,6 @@ export class AdminCategoryComponent implements OnInit {
 
 	items: Category[] = [];
 	itemsCount: number;
-	tableResource: DataTableResource<Category>;
 
 	constructor(private categoryService: CategoryService,
 				private toastr: ToastrService) { }
@@ -50,16 +48,16 @@ export class AdminCategoryComponent implements OnInit {
 	}
 
 	reloadItems(params) {
-		if(this.tableResource)
-			this.tableResource.query(params)
-				.then(items => this.items = items);
+		// if(this.tableResource)
+		// 	this.tableResource.query(params)
+		// 		.then(items => this.items = items);
 	}
 
 	initializeDataTable(categories: Category[]) {
-		this.tableResource = new DataTableResource(categories);
-		this.tableResource.query({offset: 0})
-			.then(items => this.items = items);
-		this.tableResource.count()
-			.then(count => this.itemsCount = count );
+		// this.tableResource = new DataTableResource(categories);
+		// this.tableResource.query({offset: 0})
+		// 	.then(items => this.items = items);
+		// this.tableResource.count()
+		// 	.then(count => this.itemsCount = count );
 	}
 }

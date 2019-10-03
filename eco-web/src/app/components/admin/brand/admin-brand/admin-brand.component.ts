@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BrandService } from '../../../../services/brand.service';
 import { ToastrService } from 'ngx-toastr';
 import { Brand } from '../../../../domain/brand';
-import { DataTableResource } from 'angular5-data-table';
+import { BrandService } from '../../../../services/brand.service';
 
 @Component({
   selector: 'app-admin-brand',
@@ -13,7 +12,7 @@ export class AdminBrandComponent implements OnInit {
 
 	items: Brand[] = [];
 	itemsCount: number;
-	tableResource: DataTableResource<Brand>;
+	// tableResource: DataTableResource<Brand>;
 
 	constructor(private brandService: BrandService,
 				private toastr: ToastrService) { }
@@ -50,16 +49,16 @@ export class AdminBrandComponent implements OnInit {
 	}
 
 	reloadItems(params) {
-		if(this.tableResource)
-			this.tableResource.query(params)
-				.then(items => this.items = items);
+		// if(this.tableResource)
+		// 	this.tableResource.query(params)
+		// 		.then(items => this.items = items);
 	}
 
 	initializeDataTable(brands: Brand[]) {
-		this.tableResource = new DataTableResource(brands);
-		this.tableResource.query({offset: 0})
-			.then(items => this.items = items);
-		this.tableResource.count()
-			.then(count => this.itemsCount = count);
+		// this.tableResource = new DataTableResource(brands);
+		// this.tableResource.query({offset: 0})
+		// 	.then(items => this.items = items);
+		// this.tableResource.count()
+		// 	.then(count => this.itemsCount = count);
 	}
 }

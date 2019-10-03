@@ -38,7 +38,7 @@
                 <label><strong>Brand: </strong></label>
               </td>
               <td>
-                <span class="form-group" *ngFor="let brand of brands">
+                <span class="form-group" *ngFor="let brand of $brands | async">
                   <input id="brand{{brand.id}}" type="checkbox" class="" (change)="brandChanged($event, brand)"> 
                   <label for="brand{{brand.id}}">{{brand.label}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 </span>
@@ -52,9 +52,9 @@
       
     </div>
     
-    <div class="container products-container">
+    <div class="container products-container" *ngIf="productsLoaded">
       <div class="row">
-        <ng-container *ngFor="let p of products; let i = index">
+        <ng-container *ngFor="let p of products ; let i = index">
           <div class="col product-item">
             <div
               class="card" style="width: 15rem;">

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from '../../domain/product';
 import { AuthenticationService } from '../../services/authentication.service';
-import { ToastrService } from 'ngx-toastr';
-import { BrandService } from '../../services/brand.service'
+import { BrandService } from '../../services/brand.service';
 import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -14,13 +14,14 @@ import { CartService } from '../../services/cart.service';
 export class ProductComponent implements OnInit {
 
   products: Array<Product> = [];
-  brands: Array<any> = [];
+  $brands;
   productSearchDto: any = { brands: Array(), minPrice: 0, maxPrice: 100000 };
   currentPage: number = 0;
   size: number = 100;
   rangeValues: number[] = [0, 100000];
   username: string;
   connectedUserCart;
+  productsLoaded = false;
   $products;
 
   constructor(private productService: ProductService,
@@ -49,9 +50,10 @@ export class ProductComponent implements OnInit {
   loadProducts(page, size) {
     this.$products = this.productService.loadProducts(page, size);
     this.$products.subscribe((result: any) => {
-      this.products = result;
-      // this.setMainImageForeachProduct();
-      this.updateProductAvailability(result);
+      this.products = result.content;
+      this.setMainImageForeachProduct();
+      this.updateProductAvailability();
+      this.productsLoaded = true;
     })
   }
 
@@ -74,11 +76,8 @@ export class ProductComponent implements OnInit {
   }
 
   loadBrands() {
-    this.brandService.loadBrands().subscribe((result: any) => {
-      this.brands = result;
-    }, error => {
-      this.toastr.error(String(error));
-    });
+    this.$brands = this.brandService.loadBrands();
+
   }
 
   priceRangeChanged(event) {
@@ -88,9 +87,9 @@ export class ProductComponent implements OnInit {
 
   onSearch() {
     this.productService.search(this.productSearchDto, this.currentPage, this.size).subscribe((result: any) => {
-      this.products = result;
-      // this.setMainImageForeachProduct();
-      this.updateProductAvailability(result);
+      this.products = result.content;
+      this.setMainImageForeachProduct();
+      this.updateProductAvailability();
     }, error => {
       this.toastr.error(String(error));
     });
@@ -103,22 +102,32 @@ export class ProductComponent implements OnInit {
       this.productSearchDto.brands.splice(this.productSearchDto.brands.indexOf(brand), 1);
   }
 
-  updateProductAvailability(productList) {
-    if (this.connectedUserCart) {
-      let cartProducts = this.connectedUserCart.products;
-      cartProducts.forEach((cp: any) => {
-        let pCart: Product = cp.product;
-        if (productList) {
-          productList.forEach(product => {
-            if (pCart.id == product.id) {
-              if (product.qteStock <= cp.quantity) {
-                product.unavailable = true;
-              }
-            }
-          });
-        }
-      })
-    }
+  setMainImageForeachProduct() {
+    this.products.forEach(product => {
+      if (product.attachments && product.attachments.length > 0) {
+        product.mainImage = product.attachments[0];
+      }
+    })
+    console.log(this.products);
+  }
+
+  // TODO: to be moved to the backend
+  updateProductAvailability() {
+    // if (this.connectedUserCart) {
+    //   let cartProducts = this.connectedUserCart.products;
+    //   cartProducts.forEach((cp: any) => {
+    //     let pCart: Product = cp.product;
+    //     if (this.products) {
+    //       this.products.forEach(product => {
+    //         if (pCart.id == product.id) {
+    //           if (product.qteStock <= cp.quantity) {
+    //             product.unavailable = true;
+    //           }
+    //         }
+    //       });
+    //     }
+    //   })
+    // }
   }
 
 }

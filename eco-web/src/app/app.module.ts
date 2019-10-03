@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -42,8 +41,6 @@ import { ProductService } from './services/product.service';
 import { RequestInterceptor } from './services/request-interceptor.service';
 import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
-
-
 
 // export function authHttpServiceFactory(http: HttpClient, options: RequestOptions) {
 // 	return new AuthHttp(new AuthConfig(), http, options);
@@ -83,7 +80,7 @@ import { UserService } from './services/user.service';
 		ToastrModule.forRoot(),
 		SliderModule,
 		FileUploadModule,
-		NgbModule.forRoot(),
+		// NgbModule,
 		GalleriaModule,
 		NgxGalleryModule
 	],

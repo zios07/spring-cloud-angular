@@ -7,22 +7,22 @@ export class UserService {
 
   url: string = environment.API_URL;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   registerUser(user) {
-    return this.httpClient.post(this.url + '/api/v1/users/register', user);
+    return this.http.post(this.url + '/api/v1/users/register', user);
   }
 
   loadUsers(page, size) {
-    return this.httpClient.get(this.url + '/api/v1/users?page=' + page + '&size=' + size);
+    return this.http.get(this.url + '/api/v1/users?page=' + page + '&size=' + size);
   }
 
   deleteUser(id) {
-    return this.httpClient.delete(this.url + '/api/v1/users/' + id);
+    return this.http.delete(this.url + '/api/v1/users/' + id);
   }
 
   findById(id) {
-    return this.httpClient.get(this.url + '/api/v1/users/' + id);
+    return this.http.get(this.url + '/api/v1/users/' + id);
   }
 
 }
