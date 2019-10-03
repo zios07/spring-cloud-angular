@@ -16,7 +16,7 @@ jobs:
     - name: attachment-service build
       run: mvn package --file attachment-service/pom.xml
     - name: product-service build
-      run: mvn package --file product-service/pom.xml
+      run: mvn package --file eco-back/pom.xml
     - name: discovery-server build
       run: mvn package --file discovery-server/pom.xml
     - name: edge-server build
