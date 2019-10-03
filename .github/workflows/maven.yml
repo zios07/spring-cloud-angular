@@ -13,5 +13,13 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: attachment-service build (should be configured to build all services)
+    - name: attachment-service build
       run: mvn package --file attachment-service/pom.xml
+    - name: product-service build
+      run: mvn package --file eco-back/pom.xml
+    - name: discovery-server build
+      run: mvn package --file discovery-server/pom.xml
+    - name: edge-server build
+      run: mvn package --file edge-server/pom.xml
+    - name: config-server build
+      run: mvn package --file config-server/pom.xml
