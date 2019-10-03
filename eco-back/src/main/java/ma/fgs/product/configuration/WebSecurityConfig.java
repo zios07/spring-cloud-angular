@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(HttpMethod.OPTIONS)
 						.permitAll()
 					.anyRequest()
+					// TODO only permit authenticated requests
 						.permitAll()
 			.and()
 				.addFilter(jwtAuthenticationFilter())

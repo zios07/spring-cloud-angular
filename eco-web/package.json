@@ -16,6 +16,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^8.2.9",
+    "@angular/cdk": "~8.2.2",
     "@angular/cli": "^8.3.7",
     "@angular/common": "^8.2.9",
     "@angular/compiler": "^8.2.9",
@@ -39,6 +40,7 @@
     "ngx-toastr": "^8.10.2",
     "popper": "^1.0.1",
     "primeng": "^8.0.3",
+    "roboto-fontface": "^0.10.0",
     "rxjs": "^6.5.3",
     "tslib": "^1.10.0",
     "typescript": "~3.5.3",

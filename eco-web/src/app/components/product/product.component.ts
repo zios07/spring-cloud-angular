@@ -113,21 +113,6 @@ export class ProductComponent implements OnInit {
 
   // TODO: to be moved to the backend
   updateProductAvailability() {
-    // if (this.connectedUserCart) {
-    //   let cartProducts = this.connectedUserCart.products;
-    //   cartProducts.forEach((cp: any) => {
-    //     let pCart: Product = cp.product;
-    //     if (this.products) {
-    //       this.products.forEach(product => {
-    //         if (pCart.id == product.id) {
-    //           if (product.qteStock <= cp.quantity) {
-    //             product.unavailable = true;
-    //           }
-    //         }
-    //       });
-    //     }
-    //   })
-    // }
   }
 
 }

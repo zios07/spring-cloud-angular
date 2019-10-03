@@ -21,11 +21,12 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/primeng/resources/themes/nova-dark/theme.css",
-              "node_modules/primeng/resources/primeng.css"
+              "node_modules/primeng/resources/primeng.css",
+              "node_modules/roboto-fontface/css/roboto/roboto-fontface.css"
             ],
             "scripts": []
           },
@@ -95,11 +96,12 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/styles.css",
+              "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
               "node_modules/primeng/resources/themes/omega/theme.css",
-              "node_modules/primeng/resources/primeng.css"
+              "node_modules/primeng/resources/primeng.css",
+              "node_modules/roboto-fontface/css/roboto/roboto-fontface.css"
             ],
             "assets": [
               "src/assets",

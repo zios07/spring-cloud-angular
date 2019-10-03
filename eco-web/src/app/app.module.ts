@@ -41,10 +41,7 @@ import { ProductService } from './services/product.service';
 import { RequestInterceptor } from './services/request-interceptor.service';
 import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
-
-// export function authHttpServiceFactory(http: HttpClient, options: RequestOptions) {
-// 	return new AuthHttp(new AuthConfig(), http, options);
-// }
+import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatGridListModule, MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 
 @NgModule({
 	declarations: [
@@ -80,7 +77,25 @@ import { UserService } from './services/user.service';
 		ToastrModule.forRoot(),
 		SliderModule,
 		FileUploadModule,
-		// NgbModule,
+		MatTooltipModule,
+		MatButtonModule,
+		MatIconModule,
+		MatInputModule,
+		MatToolbarModule,
+		MatCardModule,
+		MatTableModule,
+		MatMenuModule,
+		MatTabsModule,
+		MatPaginatorModule,
+		MatDialogModule,
+		MatGridListModule,
+		MatProgressSpinnerModule,
+		MatRadioModule,
+		MatSelectModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
+		MatButtonToggleModule,
+		MatCheckboxModule, 
 		GalleriaModule,
 		NgxGalleryModule
 	],
@@ -90,11 +105,6 @@ import { UserService } from './services/user.service';
 		AuthGuard,
 		AdminGuard,
 		AuthenticationService,
-		// {
-		// 	provide: AuthHttp,
-		// 	useFactory: authHttpServiceFactory,
-		// 	deps: [HttpClient, RequestOptions]
-		// },
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: RequestInterceptor,
