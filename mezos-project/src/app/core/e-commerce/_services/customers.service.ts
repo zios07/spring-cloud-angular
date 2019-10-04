@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 // Models
 import { CustomerModel } from '../_models/customer.model';
+import { environment } from 'src/environments/environment';
 
-const API_CUSTOMERS_URL = 'api/customers';
+const API_CUSTOMERS_URL = environment.API_URL + 'api/customers';
 
 @Injectable()
 export class CustomersService {

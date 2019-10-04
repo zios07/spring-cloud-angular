@@ -72,7 +72,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "metronic:build:production"
+              "browserTarget": "metronic:build:production",
+              "proxyConfig": "proxy.conf.json"
             }
           }
         },

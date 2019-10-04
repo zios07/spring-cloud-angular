@@ -5,6 +5,7 @@
 
 export const environment = {
 	production: false,
-	isMockEnabled: true, // You have to switch this, when your real back-end is done
+	isMockEnabled: false, // You have to switch this, when your real back-end is done
+	API_URL: 'localhost:9901/',
 	authTokenKey: 'authce9d77b308c149d5992a80073637e4d5'
 };

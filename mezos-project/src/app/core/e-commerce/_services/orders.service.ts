@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // CRUD
 import { HttpUtilsService } from '../../_base/crud';
+import { environment } from 'src/environments/environment';
 
-const API_ORDERS_URL = 'api/orders';
+const API_ORDERS_URL = environment.API_URL + 'api/orders';
 
 @Injectable()
 export class OrdersService {
