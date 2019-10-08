@@ -11,7 +11,7 @@ import { ProductSpecificationModel } from '../_models/product-specification.mode
 import { SPECIFICATIONS_DICTIONARY } from '../_consts/specification.dictionary';
 import { environment } from '../../../../environments/environment';
 
-const API_PRODUCTSPECS_URL = environment.API_URL + 'api/productSpecs';
+const API_PRODUCTSPECS_URL = environment.API_URL + 'productSpecs';
 // Real REST API
 @Injectable()
 export class ProductSpecificationsService {

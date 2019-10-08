@@ -8,7 +8,7 @@ import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '../../_ba
 import { ProductRemarkModel } from '../_models/product-remark.model';
 import { environment } from '../../../../environments/environment';
 
-const API_PRODUCTREMARKS_URL = environment.API_URL + 'api/productRemarks';
+const API_PRODUCTREMARKS_URL = environment.API_URL + 'productRemarks';
 // Real REST API
 @Injectable()
 export class ProductRemarksService {

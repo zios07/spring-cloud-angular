@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpUtilsService } from '../../_base/crud';
 import { environment } from '../../../../environments/environment';
 
-const API_ORDERS_URL = environment.API_URL + 'api/orders';
+const API_ORDERS_URL = environment.API_URL + 'orders';
 
 @Injectable()
 export class OrdersService {

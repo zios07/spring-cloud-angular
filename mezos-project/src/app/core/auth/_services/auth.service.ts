@@ -9,9 +9,9 @@ import { QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 
-const API_USERS_URL = environment.API_URL + 'api/users';
-const API_PERMISSION_URL = environment.API_URL + 'api/permissions';
-const API_ROLES_URL = environment.API_URL + 'api/roles';
+const API_USERS_URL = environment.API_URL + 'users';
+const API_PERMISSION_URL = environment.API_URL + 'permissions';
+const API_ROLES_URL = environment.API_URL + 'roles';
 
 @Injectable()
 export class AuthService {
