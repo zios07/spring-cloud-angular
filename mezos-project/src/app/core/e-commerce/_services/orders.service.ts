@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // CRUD
 import { HttpUtilsService } from '../../_base/crud';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 const API_ORDERS_URL = environment.API_URL + 'api/orders';
 

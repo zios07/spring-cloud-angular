@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 // CRUD
 import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 import { ProductRemarkModel } from '../_models/product-remark.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 const API_PRODUCTREMARKS_URL = environment.API_URL + 'api/productRemarks';
 // Real REST API

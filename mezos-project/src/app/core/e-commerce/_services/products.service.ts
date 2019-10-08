@@ -7,7 +7,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 // Models
 import { ProductModel } from '../_models/product.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 const API_PRODUCTS_URL = environment.API_URL + 'api/products';
 // Real REST API

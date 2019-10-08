@@ -9,7 +9,7 @@ import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '../../_ba
 // Models and Consts
 import { ProductSpecificationModel } from '../_models/product-specification.model';
 import { SPECIFICATIONS_DICTIONARY } from '../_consts/specification.dictionary';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 const API_PRODUCTSPECS_URL = environment.API_URL + 'api/productSpecs';
 // Real REST API
