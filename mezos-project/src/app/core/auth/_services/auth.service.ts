@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { User } from '../_models/user.model';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
+import { QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 import { Permission } from '../_models/permission.model';
 import { Role } from '../_models/role.model';
-import { catchError, map } from 'rxjs/operators';
-import { QueryParamsModel, QueryResultsModel } from '../../_base/crud';
-import { environment } from '../../../../environments/environment';
-import { Router } from '@angular/router';
+import { User } from '../_models/user.model';
 
 const API_USERS_URL = environment.API_URL + 'users';
 const API_PERMISSION_URL = environment.API_URL + 'permissions';

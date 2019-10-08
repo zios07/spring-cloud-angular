@@ -2,13 +2,15 @@ import { BaseModel } from '../../_base/crud';
 
 export class Role extends BaseModel {
     id: number;
-    title: string;
+    code: string;
+    label: string;
     permissions: number[];
     isCoreRole: boolean = false;
 
     clear(): void {
         this.id = undefined;
-        this.title = '';
+        this.code = '';
+        this.label = '';
         this.permissions = [];
         this.isCoreRole = false;
 	}
