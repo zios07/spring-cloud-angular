@@ -42,6 +42,8 @@ public class User {
 	private Cart cart;
 
 	private byte[] photo;
+	
+	private transient String accessToken;
 
 	public User() {
 		super();
@@ -133,6 +135,14 @@ public class User {
 		this.cart = cart;
 	}
 	
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

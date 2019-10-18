@@ -33,11 +33,11 @@ import ma.fgs.product.service.exception.NotFoundException;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private IUserService userService;
-	
+
 	public JwtAuthenticationFilter(IUserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException {
@@ -68,11 +68,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = Jwts.builder().setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).compact();
-		
+
 		ma.fgs.product.domain.User user = null;
 		try {
 			user = userService.findUserByUsername(username);
-			res.getWriter().write(gson.toJson(user));;
+			user.setAccessToken(token);
+			res.getWriter().write(gson.toJson(user));
 			res.getWriter().flush();
 			res.getWriter().close();
 			res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
@@ -80,7 +81,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }
