@@ -21,13 +21,23 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.google.gson.Gson;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import ma.fgs.product.domain.Account;
+import ma.fgs.product.service.api.IUserService;
+import ma.fgs.product.service.exception.NotFoundException;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+	private IUserService userService;
+	
+	public JwtAuthenticationFilter(IUserService userService) {
+		this.userService = userService;
+	}
+	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException {
@@ -47,8 +57,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
-
-		final Claims claims = Jwts.claims().setSubject(((User) auth.getPrincipal()).getUsername());
+		Gson gson = new Gson();
+		String username = ((User) auth.getPrincipal()).getUsername();
+		final Claims claims = Jwts.claims().setSubject(username);
 		if (((User) auth.getPrincipal()).getAuthorities() != null
 				&& !((User) auth.getPrincipal()).getAuthorities().isEmpty()) {
 			claims.put("role",
@@ -57,10 +68,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String token = Jwts.builder().setClaims(claims)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).compact();
-		res.getWriter().write(token);
-		res.getWriter().flush();
-		res.getWriter().close();
-		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		
+		ma.fgs.product.domain.User user = null;
+		try {
+			user = userService.findUserByUsername(username);
+			res.getWriter().write(gson.toJson(user));;
+			res.getWriter().flush();
+			res.getWriter().close();
+			res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

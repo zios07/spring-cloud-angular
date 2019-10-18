@@ -17,7 +17,7 @@ import { AuthNoticeService, AuthService, Login } from '../../../../core/auth';
  * ! Just example => Should be removed in development
  */
 const DEMO_PARAMS = {
-	EMAIL: 'admin@demo.com',
+	USERNAME: 'admin@demo.com',
 	PASSWORD: 'demo'
 };
 
@@ -87,17 +87,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 		// demo message to show
 		if (!this.authNoticeService.onNoticeChanged$.getValue()) {
 			const initialNotice = `Use account
-			<strong>${DEMO_PARAMS.EMAIL}</strong> and password
+			<strong>${DEMO_PARAMS.USERNAME}</strong> and password
 			<strong>${DEMO_PARAMS.PASSWORD}</strong> to continue.`;
 			this.authNoticeService.setNotice(initialNotice, 'info');
 		}
 
 		this.loginForm = this.fb.group({
-			email: [DEMO_PARAMS.EMAIL, Validators.compose([
+			username: [DEMO_PARAMS.USERNAME, Validators.compose([
 				Validators.required,
-				Validators.email,
 				Validators.minLength(3),
-				Validators.maxLength(320) // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+				Validators.maxLength(100)
 			])
 			],
 			password: [DEMO_PARAMS.PASSWORD, Validators.compose([
@@ -125,11 +124,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.loading = true;
 
 		const authData = {
-			email: controls['email'].value,
+			username: controls['username'].value,
 			password: controls['password'].value
 		};
 		this.auth
-			.login(authData.email, authData.password)
+			.login(authData.username, authData.password)
 			.pipe(
 				tap(user => {
 					if (user) {
