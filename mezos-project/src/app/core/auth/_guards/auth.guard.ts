@@ -1,28 +1,41 @@
 // Angular
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-// RxJS
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-// NGRX
-import { select, Store } from '@ngrx/store';
-// Auth reducers and selectors
-import { AppState} from '../../../core/reducers/';
-import { isLoggedIn } from '../_selectors/auth.selectors';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
-    constructor(private store: Store<AppState>, private router: Router) { }
+export class AuthGuard extends KeycloakAuthGuard {
+    constructor(protected router: Router, protected keycloakAngular: KeycloakService) {
+        super(router, keycloakAngular);
+    }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {
-        return this.store
-            .pipe(
-                select(isLoggedIn),
-                tap(loggedIn => {
-                    if (!loggedIn) {
-                        this.router.navigateByUrl('/auth/login');
+    isAccessAllowed(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+        return new Promise(async (resolve, reject) => {
+            if (!this.authenticated) {
+                this.keycloakAngular.login();
+                return;
+            }
+            console.log('role restriction given at app-routing.module for this route', route.data.roles);
+            console.log('User roles coming after login from keycloak :', this.roles);
+            const requiredRoles = route.data.roles;
+            let granted: boolean = false;
+            if (!requiredRoles || requiredRoles.length === 0) {
+                granted = true;
+            } else {
+                for (const requiredRole of requiredRoles) {
+                    if (this.roles.indexOf(requiredRole) > -1) {
+                        console.log('User role not allowed');
+                        granted = true;
+                        break;
                     }
-                })
-            );
+                }
+            }
+
+            if (granted === false) {
+                this.router.navigate(['/']);
+            }
+            resolve(granted);
+
+        });
     }
 }

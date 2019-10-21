@@ -21,6 +21,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Auth
 import { AuthService, authReducer, AuthGuard, AuthEffects  } from '../../../core/auth';
+import { KeycloakService } from 'keycloak-angular';
 
 const routes: Routes = [
 	{
@@ -65,6 +66,7 @@ const routes: Routes = [
 	],
 	providers: [
 		InterceptService,
+		KeycloakService,
       	{
         	provide: HTTP_INTERCEPTORS,
        	 	useClass: InterceptService,

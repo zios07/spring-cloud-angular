@@ -93,7 +93,7 @@ const routes: Routes = [
 	{
 		path: '',
 		component: ECommerceComponent,
-		// canActivate: [ModuleGuard],
+		canActivate: [ModuleGuard],
 		// data: { moduleName: 'ecommerce' },
 		children: [
 			{
