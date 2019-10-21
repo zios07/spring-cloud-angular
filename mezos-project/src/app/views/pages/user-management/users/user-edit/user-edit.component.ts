@@ -129,7 +129,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	 */
 	createForm() {
 		this.userForm = this.userFB.group({
-			username: [this.user.username, Validators.required],
+			username: [this.user.account.username, Validators.required],
 			fullname: [this.user.fullname, Validators.required],
 			email: [this.user.email, Validators.email],
 			phone: [this.user.phone],
@@ -219,13 +219,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
 		_user.refreshToken = this.user.refreshToken;
 		_user.pic = this.user.pic;
 		_user.id = this.user.id;
-		_user.username = controls['username'].value;
+		_user.account.username = controls['username'].value;
 		_user.email = controls['email'].value;
 		_user.fullname = controls['fullname'].value;
 		_user.occupation = controls['occupation'].value;
 		_user.phone = controls['phone'].value;
 		_user.companyName = controls['companyName'].value;
-		_user.password = this.user.password;
+		_user.account.password = this.user.account.password;
 		return _user;
 	}
 

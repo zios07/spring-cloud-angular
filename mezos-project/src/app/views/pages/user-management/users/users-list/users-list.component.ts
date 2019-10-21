@@ -202,7 +202,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 			messages.push({
 				text: `${elem.fullname}, ${elem.email}`,
 				id: elem.id.toString(),
-				status: elem.username
+				status: elem.account.username
 			});
 		});
 		this.layoutUtilsService.fetchElements(messages);

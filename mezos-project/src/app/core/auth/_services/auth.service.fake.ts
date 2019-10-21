@@ -37,14 +37,14 @@ export class AuthService {
                 }
 
                 const user = find(result, function(item: User) {
-                    return (item.email.toLowerCase() === email.toLowerCase() && item.password === password);
+                    return (item.email.toLowerCase() === email.toLowerCase() && item.account.password === password);
                 });
 
                 if (!user) {
                     return null;
                 }
 
-                user.password = undefined;
+                user.account.password = undefined;
                 return user;
             })
         );
@@ -85,7 +85,7 @@ export class AuthService {
                     return null;
                 }
 
-                user.password = undefined;
+                user.account.password = undefined;
                 return user;
             }),
             catchError(this.handleError('forgot-password', []))
@@ -112,7 +112,7 @@ export class AuthService {
                     return null;
                 }
 
-                user.password = undefined;
+                user.account.password = undefined;
                 return user;
             })
         );

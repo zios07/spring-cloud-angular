@@ -3,6 +3,7 @@ version: "3"
 services:
   postgres:
     image: postgres
+    container_name: postgres
     restart: always
     ports:
       - 5432:5432
@@ -14,7 +15,21 @@ services:
   adminer:
     image: adminer
     ports:
+      - 9999:9999
+
+  auth:
+    image: jboss/keycloak
+    container_name: keycloak-server
+    ports:
       - 8080:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_ADDR: postgres
+      DB_PORT: 5432
+      DB_DATABASE: auth-db
+      DB_USER: root
+      DB_PASSWORD: root123
 
   discovery-server:
     image: zios07/discovery-server
@@ -24,9 +39,9 @@ services:
       - 8761:8761
     depends_on:
       - config-server
-    environment: 
+    environment:
       SPRING_PROFILES_ACTIVE: staging
-  
+
   edge-server:
     image: zios07/edge-server
     container_name: edge-server
@@ -36,7 +51,7 @@ services:
     depends_on:
       - config-server
       - discovery-server
-    environment: 
+    environment:
       SPRING_PROFILES_ACTIVE: staging
 
   config-server:
@@ -45,7 +60,7 @@ services:
     restart: always
     ports:
       - 8888:8888
-  
+
   web:
     image: zios07/ecom-web
     container_name: ecom-web
@@ -62,5 +77,5 @@ services:
       - config-server
       - discovery-server
       - postgres
-    environment: 
+    environment:
       SPRING_PROFILES_ACTIVE: staging

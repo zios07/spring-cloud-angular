@@ -6,7 +6,8 @@ export class Role extends BaseModel {
     label: string;
     permissions: number[];
     isCoreRole: boolean = false;
-
+    title: string;
+    
     clear(): void {
         this.id = undefined;
         this.code = '';
