@@ -5,9 +5,8 @@ import { KeycloakConfig } from 'keycloak-angular';
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-// Add here your keycloak setup infos
-let keycloakConfig: KeycloakConfig = {
-	url: 'http://localhost:8088/auth',
+const keycloakConfig: KeycloakConfig = {
+	url: 'http://localhost:8080/auth',
 	realm: 'ecom-app',
 	clientId: 'ecom-web-client',
 	credentials: {
@@ -15,10 +14,11 @@ let keycloakConfig: KeycloakConfig = {
 	}
 };
 
+
 export const environment = {
 	production: false,
 	isMockEnabled: false, // You have to switch this, when your real back-end is done
 	API_URL: 'http://localhost:9901/api/v1/',
 	authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
-	keycloak: keycloakConfig
+	keycloakConfig
 };

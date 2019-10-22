@@ -1,27 +1,28 @@
 // Angular
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Material
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
-// Translate
-import { TranslateModule } from '@ngx-translate/core';
+import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { RouterModule, Routes } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
 // NGRX
 import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
+// Translate
+import { TranslateModule } from '@ngx-translate/core';
+import { KeycloakService } from 'keycloak-angular';
+// Auth
+import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
 // CRUD
 import { InterceptService } from '../../../core/_base/crud/';
+import { initializer } from '../../../utils/app-init';
+import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Module components
 import { AuthComponent } from './auth.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
-// Auth
-import { AuthService, authReducer, AuthGuard, AuthEffects  } from '../../../core/auth';
-import { KeycloakService } from 'keycloak-angular';
 
 const routes: Routes = [
 	{
@@ -62,16 +63,21 @@ const routes: Routes = [
 		MatCheckboxModule,
 		TranslateModule.forChild(),
 		StoreModule.forFeature('auth', authReducer),
-        EffectsModule.forFeature([AuthEffects])
+		EffectsModule.forFeature([AuthEffects])
 	],
 	providers: [
 		InterceptService,
-		KeycloakService,
-      	{
-        	provide: HTTP_INTERCEPTORS,
-       	 	useClass: InterceptService,
-        	multi: true
-      	},
+		{
+			provide: APP_INITIALIZER,
+			useFactory: initializer,
+			multi: true,
+			deps: [KeycloakService]
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: InterceptService,
+			multi: true
+		},
 	],
 	exports: [AuthComponent],
 	declarations: [
@@ -84,13 +90,14 @@ const routes: Routes = [
 })
 
 export class AuthModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: AuthModule,
-            providers: [
+	static forRoot(): ModuleWithProviders {
+		return {
+			ngModule: AuthModule,
+			providers: [
 				AuthService,
+				KeycloakService,
 				AuthGuard
-            ]
-        };
-    }
+			]
+		};
+	}
 }
