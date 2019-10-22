@@ -12,16 +12,17 @@ import { StoreModule } from '@ngrx/store';
 // Translate
 import { TranslateModule } from '@ngx-translate/core';
 // Auth
-import { AuthEffects, AuthGuard, authReducer, AuthService, KeycloakService } from '../../../core/auth';
+import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
 // CRUD
 import { InterceptService } from '../../../core/_base/crud/';
-import { initializer } from '../../../utils/app-init';
+import { initializer } from './../../../utils/app-init';
 import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Module components
 import { AuthComponent } from './auth.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { KeycloakService } from 'keycloak-angular';
 
 const routes: Routes = [
 	{
@@ -66,13 +67,12 @@ const routes: Routes = [
 	],
 	providers: [
 		InterceptService,
-		KeycloakService,
-		// {
-		// 	provide: APP_INITIALIZER,
-		// 	useFactory: initializer,
-		// 	multi: true,
-		// 	deps: [KeycloakService]
-		// },
+		{
+			provide: APP_INITIALIZER,
+			useFactory: initializer,
+			multi: true,
+			deps: [KeycloakService]
+		},
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: InterceptService,
@@ -95,8 +95,8 @@ export class AuthModule {
 			ngModule: AuthModule,
 			providers: [
 				AuthService,
-				KeycloakService,
-				AuthGuard
+				AuthGuard,
+				KeycloakService
 			]
 		};
 	}

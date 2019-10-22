@@ -1,6 +1,5 @@
 // SERVICES
 export { AuthService } from './_services/auth.service';
-export { KeycloakService } from './_services/keycloak.service';
 export { AuthNoticeService } from './auth-notice/auth-notice.service';
 
 // DATA SOURCERS

@@ -27,7 +27,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import ma.fgs.product.security.JwtAuthenticationFilter;
-import ma.fgs.product.security.JwtAuthorizationFilter;
 import ma.fgs.product.security.utils.UserDetailsServiceImpl;
 import ma.fgs.product.service.AccountService;
 import ma.fgs.product.service.UserService;
@@ -74,8 +73,7 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, LOGIN_URL, REGISTRATION_URL).permitAll().antMatchers(HttpMethod.OPTIONS)
 				.permitAll().anyRequest()
 				// TODO only permit authenticated requests
-				.authenticated().and().addFilter(jwtAuthenticationFilter())
-				.addFilter(new JwtAuthorizationFilter(authenticationManager()));
+				.authenticated();
 	}
 
 	@Override
