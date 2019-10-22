@@ -11,9 +11,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 // Translate
 import { TranslateModule } from '@ngx-translate/core';
-import { KeycloakService } from 'keycloak-angular';
 // Auth
-import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
+import { AuthEffects, AuthGuard, authReducer, AuthService, KeycloakService } from '../../../core/auth';
 // CRUD
 import { InterceptService } from '../../../core/_base/crud/';
 import { initializer } from '../../../utils/app-init';
@@ -67,12 +66,13 @@ const routes: Routes = [
 	],
 	providers: [
 		InterceptService,
-		{
-			provide: APP_INITIALIZER,
-			useFactory: initializer,
-			multi: true,
-			deps: [KeycloakService]
-		},
+		KeycloakService,
+		// {
+		// 	provide: APP_INITIALIZER,
+		// 	useFactory: initializer,
+		// 	multi: true,
+		// 	deps: [KeycloakService]
+		// },
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: InterceptService,

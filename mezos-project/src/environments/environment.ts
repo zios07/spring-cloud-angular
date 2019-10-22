@@ -7,10 +7,10 @@ import { KeycloakConfig } from 'keycloak-angular';
 
 const keycloakConfig: KeycloakConfig = {
 	url: 'http://localhost:8080/auth',
-	realm: 'ecom-app',
-	clientId: 'ecom-web-client',
+	realm: 'ecomapp',
+	clientId: 'ecom-web',
 	credentials: {
-		secret: '425473d6-de72-4d2f-8aeb-c72c33aeda75'
+		secret: '07798e48-6476-4aac-b4db-f03ae7b47185'
 	}
 };
 

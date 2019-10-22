@@ -74,7 +74,7 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, LOGIN_URL, REGISTRATION_URL).permitAll().antMatchers(HttpMethod.OPTIONS)
 				.permitAll().anyRequest()
 				// TODO only permit authenticated requests
-				.permitAll().and().addFilter(jwtAuthenticationFilter())
+				.authenticated().and().addFilter(jwtAuthenticationFilter())
 				.addFilter(new JwtAuthorizationFilter(authenticationManager()));
 	}
 
