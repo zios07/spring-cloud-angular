@@ -1,6 +1,21 @@
 version: "3"
 
 services:
+
+  auth:
+    image: jboss/keycloak
+    container_name: keycloak-server
+    ports:
+      - 8080:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      DB_ADDR: postgres
+      DB_PORT: 5432
+      DB_DATABASE: auth-db
+      DB_USER: root
+      DB_PASSWORD: root123
+
   postgres:
     image: postgres
     container_name: postgres
@@ -9,6 +24,8 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   mysql:
     image: mysql
@@ -57,3 +74,6 @@ services:
     restart: always
     ports:
       - 9999:8080
+
+volumes:
+  pgdata:

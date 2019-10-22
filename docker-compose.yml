@@ -8,9 +8,11 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root123
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ecomapp
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -79,3 +81,6 @@ services:
       - postgres
     environment:
       SPRING_PROFILES_ACTIVE: staging
+
+volumes:
+  pgdata:
