@@ -22,7 +22,12 @@ public class AttachmentController {
 	public AttachmentController(AttachmentService attachmentService) {
 		this.attachmentService = attachmentService;
 	}
-	
+
+	@GetMapping
+	public List<Attachment> getAllAttachments() {
+		return attachmentService.getAttachments();
+	}
+
 	@GetMapping(value = "by-entity")
 	public List<Attachment> getAttachmentsByEntity(@RequestParam String className, @RequestParam Object entityId) {
 		return attachmentService.getEntityAttachment(className, entityId);

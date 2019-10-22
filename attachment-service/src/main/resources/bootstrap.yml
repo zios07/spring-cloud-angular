@@ -1,3 +1,13 @@
 spring:
   application:
     name: attachment-service
+  main:
+      allow-bean-definition-overriding: true
+
+
+keycloak:
+  auth-server-url: http://localhost:8080/auth/
+  resource: attachment-service
+  realm: ecomapp
+  public-client: false
+  principal-attribute: preferred_username
