@@ -24,6 +24,7 @@ services:
     container_name: keycloak-server
     ports:
       - 8080:8080
+    restart: always
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
@@ -36,7 +37,7 @@ services:
   discovery-server:
     image: zios07/discovery-server
     container_name: discovery-server
-    restart: on-failure
+    restart: always
     ports:
       - 8761:8761
     depends_on:
@@ -47,7 +48,7 @@ services:
   edge-server:
     image: zios07/edge-server
     container_name: edge-server
-    restart: on-failure
+    restart: always
     ports:
       - 8765:8765
     depends_on:
@@ -74,7 +75,7 @@ services:
     container_name: product-service
     ports:
       - 9901:9901
-    restart: on-failure
+    restart: always
     depends_on:
       - config-server
       - discovery-server

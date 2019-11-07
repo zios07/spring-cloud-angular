@@ -11,7 +11,6 @@ keycloak:
   auth-server-url: http://localhost:8080/auth/
   resource: product-service
   realm: ecomapp
-  public-client: true
   principal-attribute: preferred_username
 ---
 
