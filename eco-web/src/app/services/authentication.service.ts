@@ -23,8 +23,6 @@ export class AuthenticationService {
     }
 
     logout() {
-        // localStorage.removeItem('token');
-        // this.router.navigate(['/']);
         this.keycloakService.logout();
     }
 
