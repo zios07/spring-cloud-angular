@@ -15,7 +15,8 @@ export class LoginComponent {
   invalidLogin: boolean;
   constructor(private authService: AuthenticationService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+  }
 
   onLogin(credentials) {
     this.authService.authenticate(credentials).subscribe(token => {
@@ -34,12 +35,7 @@ export class LoginComponent {
   }
 
   isLoggedIn() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return false;
-    }
-    const isExpired = this.jwtHelper.isTokenExpired(token);
-    return !isExpired;
+    return this.authService.isLoggedIn();
   }
 
 }

@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,6 +42,8 @@ import { RequestInterceptor } from './services/request-interceptor.service';
 import { RoleService } from './services/role.service';
 import { UserService } from './services/user.service';
 import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatGridListModule, MatIconModule, MatInputModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { KeycloakService } from 'keycloak-angular';
+import { initializer } from './utils/app-init';
 
 @NgModule({
 	declarations: [
@@ -95,7 +97,7 @@ import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModul
 		MatDatepickerModule,
 		MatNativeDateModule,
 		MatButtonToggleModule,
-		MatCheckboxModule, 
+		MatCheckboxModule,
 		GalleriaModule,
 		NgxGalleryModule
 	],
@@ -105,6 +107,7 @@ import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModul
 		AuthGuard,
 		AdminGuard,
 		AuthenticationService,
+		KeycloakService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: RequestInterceptor,
@@ -114,7 +117,13 @@ import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModul
 		UserService,
 		RoleService,
 		CartService,
-		CategoryService
+		CategoryService,
+		{
+			provide: APP_INITIALIZER,
+			useFactory: initializer,
+			multi: true,
+			deps: [KeycloakService]
+		},
 	],
 	bootstrap: [AppComponent]
 })

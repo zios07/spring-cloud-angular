@@ -11,30 +11,30 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   public modalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService, 
-              public authService: AuthenticationService,
-              private router: Router) { }
+  constructor(private modalService: BsModalService,
+    public authService: AuthenticationService,
+    private router: Router) { }
 
   ngOnInit() {
   }
 
   // TODO: inject a service to work with
 
-  onLogin(template: BsModalRef){
+  onLogin(template: BsModalRef) {
     // this.modalRef = this.modalService.show(template);
     this.router.navigate(['/login']);
   }
 
-  onRegister(template: BsModalRef){
+  onRegister(template: BsModalRef) {
     // this.modalRef = this.modalService.show(template);
     this.router.navigate(['/register']);
   }
 
-  closeLogin(){
+  closeLogin() {
     this.modalRef.hide();
   }
 
-  closeRegistration(){
+  closeRegistration() {
     this.modalRef.hide();
   }
 
