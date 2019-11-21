@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: product-service-deployment
+  name: product-service
   labels:
     app: product-service
 spec:
@@ -14,6 +14,7 @@ spec:
       labels:
         app: product-service
     spec:
+      hostname: product-service
       containers:
       - name: product-service
         image: zios07/product-service
@@ -21,22 +22,22 @@ spec:
         - containerPort: 9901
         resources:
           limits:
-            cpu: ".5"
+            cpu: ".2"
             memory: "256Mi"
         env:
           - name: SPRING_PROFILES_ACTIVE
             value: staging
+ 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: product-service-service
+  name: product-service
 spec:
   selector:
     app: product-service
-  type: LoadBalancer
   ports:
-  - protocol: TCP
+  - name: "9901"
     port: 9901
     targetPort: 9901

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: edge-server-deployment
+  name: edge-server
   labels:
     app: edge-server
 spec:
@@ -14,6 +14,7 @@ spec:
       labels:
         app: edge-server
     spec:
+      hostname: edge-server
       containers:
       - name: edge-server
         image: zios07/edge-server
@@ -32,12 +33,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: edge-server-service
+  name: edge-server
 spec:
   selector:
     app: edge-server
-  type: LoadBalancer
   ports:
-  - protocol: TCP
+  - name: "8765"
     port: 8765
     targetPort: 8765

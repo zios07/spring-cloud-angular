@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end-deployment
+  name: front-end
   labels:
     app: front-end
 spec:
@@ -14,6 +14,7 @@ spec:
       labels:
         app: front-end
     spec:
+      hostname: front-end
       containers:
       - name: front-end
         image: zios07/ecom-web
@@ -28,12 +29,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-service
+  name: front-end
 spec:
   selector:
     app: front-end
-  type: LoadBalancer
   ports:
-  - protocol: TCP
+  - name: "80"
     port: 80
     targetPort: 80

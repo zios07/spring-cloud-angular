@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: discovery-server-deployment
+  name: discovery-server
   labels:
     app: discovery-server
 spec:
@@ -14,6 +14,7 @@ spec:
       labels:
         app: discovery-server
     spec:
+      hostname: discovery-server
       containers:
       - name: discovery-server
         image: zios07/discovery-server
@@ -32,12 +33,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: discovery-server-service
+  name: discovery-server
 spec:
   selector:
     app: discovery-server
-  type: LoadBalancer
   ports:
-  - protocol: TCP
+  - name: "8761"
     port: 8761
     targetPort: 8761

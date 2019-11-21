@@ -41,9 +41,9 @@ spring:
   profiles: staging
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: root123
+    password: postgres
     url: jdbc:postgresql://postgres:5432/ecomapp
-    username: root
+    username: postgres
   jpa:
     show-sql: true
     hibernate:

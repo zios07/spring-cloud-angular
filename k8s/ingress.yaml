@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mezos-ingress
+spec:
+  rules:
+    - host: config-server
+      http:
+        paths:
+          - backend:
+              serviceName: config-server
+              servicePort: 8888
+    - host: web.mezos.com
+      http:
+        paths:
+          - backend:
+              serviceName: front-end
+              servicePort: 80
+    - host: adminer.mezos.com
+      http:
+        paths:
+          - backend:
+              serviceName: adminer
+              servicePort: 8080

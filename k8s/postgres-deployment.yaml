@@ -1,39 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: adminer
+  name: postgres
   labels:
-    app: adminer
+    app: postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: adminer
+      app: postgres
   template:
     metadata:
       labels:
-        app: adminer
+        app: postgres
     spec:
+      hostname: postgres
       containers:
-      - name: adminer
-        image: adminer
+      - name: postgres
+        image: postgres
         ports:
-        - containerPort: 8080
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_PASSWORD
+            value: postgres
         resources:
           limits:
             cpu: ".1"
             memory: "256Mi"
- 
+
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: adminer
+  name: postgres
 spec:
   selector:
-    app: adminer
+    app: postgres
   ports:
-  - name: "8080"
-    port: 8080
-    targetPort: 8080
+  - name: "5432"
+    port: 5432
+    targetPort: 5432
