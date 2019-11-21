@@ -23,6 +23,8 @@ spec:
         env:
           - name: POSTGRES_PASSWORD
             value: postgres
+          - name: POSTGRES_DB
+            value: ecomapp
         resources:
           limits:
             cpu: ".1"

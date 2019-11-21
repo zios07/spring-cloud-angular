@@ -22,3 +22,8 @@ spec:
           - backend:
               serviceName: adminer
               servicePort: 8080
+    - http:
+        paths:
+        - backend:
+            serviceName: product-service
+            servicePort: 9901
