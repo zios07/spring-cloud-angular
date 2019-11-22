@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: attachment-service
+  labels:
+    app: attachment-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: attachment-service
+  template:
+    metadata:
+      labels:
+        app: attachment-service
+    spec:
+      hostname: attachment-service
+      containers:
+      - name: attachment-service
+        image: zios07/attachment-service
+        ports:
+        - containerPort: 9902
+        resources:
+          limits:
+            cpu: ".2"
+            memory: "256Mi"
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: staging
+ 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: attachment-service
+spec:
+  selector:
+    app: attachment-service
+  ports:
+  - name: "9902"
+    port: 9902
+    targetPort: 9902
