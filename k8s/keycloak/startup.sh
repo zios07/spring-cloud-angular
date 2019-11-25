@@ -1,9 +1,9 @@
 echo "starting keycloak deployment + ingress"
 
-export MINIKUBE_IP=`minikube ip`
-export KEYCLOAK_HOST=keycloak.$MINIKUBE_IP.demo.ko
-export BACKEND_HOST=backend.$MINIKUBE_IP.demo.ko
-export FRONTEND_HOST=frontend.$MINIKUBE_IP.demo.ko
+export MINIKUBE_IP="104.197.138.57"
+export KEYCLOAK_HOST=keycloak.$MINIKUBE_IP.nip.io
+export BACKEND_HOST=backend.$MINIKUBE_IP.nip.io
+export FRONTEND_HOST=frontend.$MINIKUBE_IP.nip.io
 
 kubectl create -f keycloak.yaml
 
