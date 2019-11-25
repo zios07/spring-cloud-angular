@@ -16,8 +16,8 @@ export class ProductComponent implements OnInit {
   products: Array<Product> = [];
   $brands;
   productSearchDto: any = { brands: Array(), minPrice: 0, maxPrice: 100000 };
-  currentPage: number = 0;
-  size: number = 100;
+  currentPage = 0;
+  size = 100;
   rangeValues: number[] = [0, 100000];
   username: string;
   connectedUserCart;
@@ -41,8 +41,9 @@ export class ProductComponent implements OnInit {
     this.cartService.loadCart(this.username).subscribe((result: any) => {
       this.connectedUserCart = result;
     }, error => {
-      if (error.status !== 404)
+      if (error.status !== 404) {
         this.toastr.error(error);
+      }
     }
     );
   }
@@ -54,21 +55,21 @@ export class ProductComponent implements OnInit {
       this.setMainImageForeachProduct();
       this.updateProductAvailability();
       this.productsLoaded = true;
-    })
+    });
   }
 
   addToCart(product) {
-    let username: string = this.authService.getConnectedUsername();
+    const username: string = this.authService.getConnectedUsername();
     this.productService.addProductToCart(product, username).subscribe(result => {
-      this.toastr.success("Product added to cart");
+      this.toastr.success('Product added to cart');
       this.products.forEach(p => {
         this.cartService.loadCart(username).subscribe((cart: any) => {
           cart.products.forEach(cartProduct => {
-            if (cartProduct.product.id == product.id && cartProduct.quantity >= product.qteStock) {
+            if (cartProduct.product.id === product.id && cartProduct.quantity >= product.qteStock) {
               product.unavailable = true;
             }
           });
-        })
+        });
       });
     }, error => {
       this.toastr.error(String(error));
@@ -96,10 +97,11 @@ export class ProductComponent implements OnInit {
   }
 
   brandChanged(event, brand) {
-    if (event.srcElement.checked)
+    if (event.srcElement.checked) {
       this.productSearchDto.brands.push(brand);
-    else
+    } else {
       this.productSearchDto.brands.splice(this.productSearchDto.brands.indexOf(brand), 1);
+    }
   }
 
   setMainImageForeachProduct() {
@@ -107,7 +109,7 @@ export class ProductComponent implements OnInit {
       if (product.attachments && product.attachments.length > 0) {
         product.mainImage = product.attachments[0];
       }
-    })
+    });
     console.log(this.products);
   }
 

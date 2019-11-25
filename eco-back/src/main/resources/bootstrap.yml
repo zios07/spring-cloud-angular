@@ -7,6 +7,10 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+logging:
+  level:
+    org.springframework.security: DEBUG
+
 keycloak:
   auth-server-url: http://localhost:8080/auth/
   resource: product-service
