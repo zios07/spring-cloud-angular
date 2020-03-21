@@ -53,7 +53,7 @@ services:
       SPRING_PROFILES_ACTIVE: staging
 
   attachment-service:
-    image: zios07/attachment-service
+    image: zios07/attachment-service:0.0.1
     container_name: attachment-service
     ports:
       - 9902:9902
