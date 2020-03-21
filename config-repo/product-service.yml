@@ -7,7 +7,7 @@ spring:
       maxFileSize: 1MB
       max-request-size: 10MB
   rabbitmq:
-    host: localhost
+    host: rabbit
     port: 5672
     password: root
     username: root
