@@ -52,6 +52,18 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: staging
 
+  attachment-service:
+    image: zios07/attachment-service
+    container_name: attachment-service
+    ports:
+      - 9902:9902
+    restart: on-failure
+    depends_on:
+      - config-server
+      - discovery-server
+    environment:
+      SPRING_PROFILES_ACTIVE: staging
+
   postgres:
     image: postgres
     container_name: postgres
