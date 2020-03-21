@@ -39,6 +39,12 @@ eureka:
 
 spring:
   profiles: staging
+  rabbitmq:
+    host: rabbit
+    port: 5672
+    password: root
+    username: root
+    virtual-host: /
   datasource:
     driver-class-name: org.postgresql.Driver
     password: root123

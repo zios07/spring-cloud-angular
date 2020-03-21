@@ -1,21 +1,6 @@
 version: "3"
 
 services:
-  postgres:
-    image: postgres
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root123
-      POSTGRES_DB: ecomapp
-
-  adminer:
-    image: adminer
-    ports:
-      - 8080:8080
-
   discovery-server:
     image: zios07/discovery-server
     container_name: discovery-server
@@ -24,9 +9,9 @@ services:
       - 8761:8761
     depends_on:
       - config-server
-    environment: 
+    environment:
       SPRING_PROFILES_ACTIVE: staging
-  
+
   edge-server:
     image: zios07/edge-server
     container_name: edge-server
@@ -36,7 +21,7 @@ services:
     depends_on:
       - config-server
       - discovery-server
-    environment: 
+    environment:
       SPRING_PROFILES_ACTIVE: staging
 
   config-server:
@@ -45,10 +30,12 @@ services:
     restart: always
     ports:
       - 8888:8888
+    environment:
+      SPRING_PROFILES_ACTIVE: staging
   
   web:
-    image: zios07/ecom-web
-    container_name: ecom-web
+    image: zios07/eco-web:0.0.1
+    container_name: eco-web
     ports:
       - 80:80
 
@@ -62,5 +49,69 @@ services:
       - config-server
       - discovery-server
       - postgres
-    environment: 
+    environment:
       SPRING_PROFILES_ACTIVE: staging
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecomapp
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: always
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 9998:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+
+  rabbit:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit"
+    container_name: rabbit
+    restart: always
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "root"
+      RABBITMQ_DEFAULT_PASS: "root"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9999:8080
+
+volumes:
+  pgdata:

@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/Desktop/ecommerce-app
+          uri: file://${user.home}/Desktop/ecommerce-app/app-v3/ecommerce-app
           search-paths:
           - config-repo
 
