@@ -16,3 +16,21 @@ spring:
 queue:
   attachment:
     name: AttachmentQueue
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+
+
+---
+
+spring:
+  profiles: staging
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-server:8761/eureka/
