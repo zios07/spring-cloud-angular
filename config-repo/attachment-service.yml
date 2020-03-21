@@ -29,7 +29,10 @@ eureka:
 
 spring:
   profiles: staging
-  
+  data:
+    mongodb:
+      uri: mongodb://root:root@mongo:27017/test?authSource=admin&authMechanism=SCRAM-SHA-1
+
 eureka:
   client:
     serviceUrl:
