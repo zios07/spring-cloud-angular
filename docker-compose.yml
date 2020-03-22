@@ -36,6 +36,7 @@ services:
   web:
     image: zios07/eco-web:0.0.2
     container_name: eco-web
+    restart: on-failure
     ports:
       - 80:80
 
