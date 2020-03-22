@@ -34,13 +34,13 @@ services:
       SPRING_PROFILES_ACTIVE: staging
   
   web:
-    image: zios07/eco-web:0.0.1
+    image: zios07/eco-web:0.0.2
     container_name: eco-web
     ports:
       - 80:80
 
   product-service:
-    image: zios07/product-service
+    image: zios07/product-service:0.0.1
     container_name: product-service
     ports:
       - 9901:9901
@@ -70,22 +70,12 @@ services:
     restart: always
     ports:
       - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ecomapp
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-  mysql:
-    image: mysql
-    container_name: mysql
-    restart: always
-    command: mysqld --default-authentication-plugin=mysql_native_password
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: root
 
   mongo:
     image: mongo
@@ -94,6 +84,8 @@ services:
     restart: always
     ports:
       - 27017:27017
+    volumes:
+      - mongo:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
@@ -101,6 +93,7 @@ services:
   mongo-express:
     image: mongo-express
     restart: always
+    container_name: mongo-express
     ports:
       - 9998:8081
     environment:
@@ -112,20 +105,26 @@ services:
     hostname: "rabbit"
     container_name: rabbit
     restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbit:/var/lib/rabbitmq
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "root"
       RABBITMQ_DEFAULT_PASS: "root"
       RABBITMQ_DEFAULT_VHOST: "/"
-    ports:
-      - "15672:15672"
-      - "5672:5672"
+    
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - 9999:8080
 
 volumes:
   pgdata:
+  mongo:
+  rabbit:

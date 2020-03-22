@@ -13,7 +13,7 @@ export class AuthenticationService {
     constructor(private http: HttpClient, private router: Router) { }
 
     authenticate(credentials) {
-        return this.http.post(this.url + '/api/v1/authentication/authenticate', credentials, { responseType: 'text' });
+        return this.http.post(this.url + '/api/v1/authentication/authenticate', credentials);
     }
 
     isLoggedIn() {

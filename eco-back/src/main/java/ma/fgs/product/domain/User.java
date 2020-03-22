@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,7 +44,8 @@ public class User {
 
 	private byte[] photo;
 	
-	private transient String accessToken;
+	@Transient
+	private String accessToken;
 
 	public User() {
 		super();
