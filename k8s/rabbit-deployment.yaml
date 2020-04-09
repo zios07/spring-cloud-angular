@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbit-deployment
+  labels:
+    app: rabbit
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbit
+  template:
+    metadata:
+      labels:
+        app: rabbit
+    spec:
+      containers:
+      - name: rabbit
+        image: rabbitmq:3-management
+        ports:
+        - containerPort: 15672
+        - containerPort: 5672
+        env:
+          - name: RABBITMQ_ERLANG_COOKIE
+            value: SWQOKODSQALRPCLNMEQG
+          - name: RABBITMQ_DEFAULT_USER
+            value: root
+          - name: RABBITMQ_DEFAULT_PASS
+            value: root
+          - name: RABBITMQ_DEFAULT_VHOST
+            value: 'root'
+        resources:
+          limits:
+            cpu: ".1"
+            memory: "256Mi"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbit-service
+spec:
+  selector:
+    app: rabbit
+  type: NodePort
+  ports:
+  - protocol: TCP
+    name: port1
+    port: 5672
+    targetPort: 5672
+    nodePort: 30001
+  - protocol: TCP
+    name: port2
+    port: 15672
+    targetPort: 15672
+    nodePort: 30002

@@ -1,39 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end-deployment
+  name: mongo-express-deployment
   labels:
-    app: front-end
+    app: mongo-express
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-end
+      app: mongo-express
   template:
     metadata:
       labels:
-        app: front-end
+        app: mongo-express
     spec:
       containers:
-      - name: front-end
-        image: zios07/eco-web:0.0.2
+      - name: mongo-express
+        image: mongo-express
         ports:
-        - containerPort: 80
+        - containerPort: 8081
         resources:
           limits:
             cpu: ".1"
             memory: "256Mi"
+ 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-service
+  name: mongo-express-service
 spec:
   selector:
-    app: front-end
+    app: mongo-express
   type: LoadBalancer
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 8081
+    targetPort: 8081

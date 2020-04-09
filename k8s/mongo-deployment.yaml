@@ -1,39 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end-deployment
+  name: mongo-deployment
   labels:
-    app: front-end
+    app: mongo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-end
+      app: mongo
   template:
     metadata:
       labels:
-        app: front-end
+        app: mongo
     spec:
       containers:
-      - name: front-end
-        image: zios07/eco-web:0.0.2
+      - name: mongo
+        image: mongo
         ports:
-        - containerPort: 80
+        - containerPort: 27017
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: root
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: root
         resources:
           limits:
             cpu: ".1"
             memory: "256Mi"
+
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-service
+  name: mongo-service
 spec:
   selector:
-    app: front-end
+    app: mongo
   type: LoadBalancer
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 27017
+    targetPort: 27017

@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: product-service-deployment
+  name: attachment-service-deployment
   labels:
-    app: product-service
+    app: attachment-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: product-service
+      app: attachment-service
   template:
     metadata:
       labels:
-        app: product-service
+        app: attachment-service
     spec:
       containers:
-      - name: product-service
-        image: zios07/product-service:0.0.1
+      - name: attachment-service
+        image: zios07/attachment-service:0.0.1
         ports:
-        - containerPort: 9901
+        - containerPort: 9902
         resources:
           limits:
             cpu: ".5"
@@ -31,12 +31,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: product-service-service
+  name: attachment-service-service
 spec:
   selector:
-    app: product-service
+    app: attachment-service
   type: LoadBalancer
   ports:
   - protocol: TCP
-    port: 9901
-    targetPort: 9901
+    port: 9902
+    targetPort: 9902
