@@ -1,21 +1,21 @@
-server:
-  port: 8888
+# server:
+#   port: 8888
   
-spring:
-  cloud:
-    config:
-      server:
-        git:
-          uri: file://${user.home}/Desktop/ecommerce-app/app-v3/ecommerce-app
-          search-paths:
-          - config-repo
+# spring:
+#   cloud:
+#     config:
+#       server:
+#         git:
+#           uri: file://${user.home}/Desktop/ecommerce-app/app-v3/ecommerce-app
+#           search-paths:
+#           - config-repo
 
----
+# ---
 server:
   port: 8888
   
 spring:
-  profiles: staging, prod
+  # profiles: staging, prod
   cloud:
     config:
       label: cart-service
