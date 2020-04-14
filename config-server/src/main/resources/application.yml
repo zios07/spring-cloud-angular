@@ -18,11 +18,12 @@ spring:
   profiles: staging, prod
   cloud:
     config:
-      #label: cart-service
+      label: cart-service
       server:
         git:
           uri: https://github.com/zios07/ecommerce-app.git
           username: zios07
           password:
+          force-pull: true
           search-paths:
           - config-repo
