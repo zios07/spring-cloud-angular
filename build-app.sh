@@ -17,7 +17,7 @@ mvn clean package -DskipTests
 
 echo "building product-service"
 
-cd ../eco-back
+cd ../product-service
 mvn clean package -DskipTests
 
 echo "building attachment-service"
@@ -53,7 +53,7 @@ echo ""
 echo "Building image for product-server"
 echo ""
 
-docker build -t zios07/product-service ../eco-back
+docker build -t zios07/product-service ../product-service
 
 echo ""
 echo "Building image for attachment-server"

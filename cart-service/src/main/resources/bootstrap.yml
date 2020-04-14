@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: cart-service
+  cloud:
+    config:
+      uri: http://localhost:8888 
+  main:
+    allow-bean-definition-overriding: true
+
+---
+
+spring:
+  profiles: staging
+  cloud:
+    config:
+      uri: http://config-server:8888 
+      
+---
+
+spring:
+  profiles: prod
+  cloud:
+    config:
+      uri: http://config-server:8888 

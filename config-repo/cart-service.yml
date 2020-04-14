@@ -1,21 +1,11 @@
 server:
-  port: 9901
+  port: 9903
 
 spring:
-  servlet:
-    multipart:
-      maxFileSize: 1MB
-      max-request-size: 10MB
-  rabbitmq:
-    host: localhost
-    port: 5672
-    password: root
-    username: root
-    virtual-host: /
   datasource:
     driver-class-name: org.postgresql.Driver
     password: postgres
-    url: jdbc:postgresql://localhost:5432/productdb
+    url: jdbc:postgresql://localhost:5432/cartdb
     username: postgres
   jpa:
     show-sql: true
@@ -26,9 +16,6 @@ spring:
             dialect: org.hibernate.dialect.PostgreSQL94Dialect
   main:
     allow-bean-definition-overriding: true
-queue:
-  attachment:
-    name: AttachmentQueue
 
 eureka:
   client:
@@ -39,16 +26,10 @@ eureka:
 
 spring:
   profiles: staging
-  rabbitmq:
-    host: rabbit
-    port: 5672
-    password: root
-    username: root
-    virtual-host: /
   datasource:
     driver-class-name: org.postgresql.Driver
     password: root123
-    url: jdbc:postgresql://postgres:5432/productdb
+    url: jdbc:postgresql://postgres:5432/cartdb
     username: root
   jpa:
     show-sql: true
