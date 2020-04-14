@@ -1,0 +1,13 @@
+sudo: enabled
+
+language: java
+jdk: oraclejdk8
+
+service:
+  - docker
+
+install:
+  - mvn clean package -DskipTests
+
+script:
+  - docker build -t product-service .

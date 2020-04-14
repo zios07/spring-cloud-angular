@@ -9,7 +9,11 @@ kubenertes migration
 Keycloack
 UserService
 ProductService
+    - CRUD/search products
+CartService
+    - Manage user cart (add/remove/view to/from cart, order request forwarded to order service ..)
 OrderService
+    - Manage orders (process deliveries, customer notification, tracking ...)
 AssetService
 
 4 -
@@ -21,3 +25,6 @@ versioning issues need to be solved
 
 6 - 
 Auditing ..
+
+7 - 
+Spring batch/integration
