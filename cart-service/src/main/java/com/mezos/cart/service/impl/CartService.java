@@ -29,7 +29,7 @@ public class CartService implements ICartService {
 	@Override
 	public Cart addToCart(CartDTO dto) {
 
-		double totalPrice = 0;
+//		double totalPrice = 0;
 		foundProduct = false;
 
 		Cart cart = getUserCart(dto.getUsername());
@@ -60,7 +60,7 @@ public class CartService implements ICartService {
 //				totalPrice += cProduct.getPrice();
 //			}
 
-			cart.setTotalPrice(totalPrice);
+//			cart.setTotalPrice(totalPrice);
 			return cartRepository.save(cart);
 
 		}
@@ -76,7 +76,7 @@ public class CartService implements ICartService {
 			products.add(cartProduct);
 
 			cart.setCartItems(products);
-			cart.setTotalPrice(totalPrice);
+//			cart.setTotalPrice(totalPrice);
 			return cartRepository.save(cart);
 
 		}

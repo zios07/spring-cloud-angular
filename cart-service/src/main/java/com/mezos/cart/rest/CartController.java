@@ -1,7 +1,5 @@
 package com.mezos.cart.rest;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,22 +25,17 @@ public class CartController {
 		return service.findCart(id);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "all")
-	public List<Cart> findAllCarts() {
-		return service.findAllCarts();
-	}
-
-	@RequestMapping(method = RequestMethod.PUT, value = "product/add")
+	@RequestMapping(method = RequestMethod.POST, value = "add-item")
 	public Cart addToCart(@RequestBody CartDTO dto) {
 		return service.addToCart(dto);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "product/minus")
+	@RequestMapping(method = RequestMethod.PUT, value = "minus-item")
 	public Cart minusProductFromCart(@RequestBody CartDTO dto) throws NotFoundException {
 		return service.minusProductFromCart(dto);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "product/delete")
+	@RequestMapping(method = RequestMethod.DELETE, value = "delete-item")
 	public void deleteProductFromCart(@RequestParam long productid, @RequestParam String username) {
 		service.deleteProductFromCart(productid, username);
 	}
@@ -52,7 +45,7 @@ public class CartController {
 		service.deleteCart(id);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/user/{username}")
+	@RequestMapping(method = RequestMethod.GET, value = "/by-username/{username}")
 	public Cart findByUsername(@PathVariable String username) throws NotFoundException {
 		return service.findByUsername(username);
 	}
