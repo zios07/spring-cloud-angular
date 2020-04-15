@@ -21,7 +21,7 @@ spring:
       label: cart-service
       server:
         git:
-          uri: https://github.com/zios07/ecommerce-app.git
+          uri: https://github.com/zios07/ecommerce-app
           username: zios07
           password:
           force-pull: true
