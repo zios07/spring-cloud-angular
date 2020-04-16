@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -38,9 +37,6 @@ public class User {
 	@ManyToOne
 	private Role role;
 	
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "CART_ID")
-	private Cart cart;
 
 	private byte[] photo;
 	
@@ -52,7 +48,7 @@ public class User {
 	}
 
 	public User(Long id, String email, String firstName, String lastName, LocalDate bDate, Account account, Role role,
-			byte[] photo, Cart cart) {
+			byte[] photo) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -62,7 +58,6 @@ public class User {
 		this.account = account;
 		this.role = role;
 		this.photo = photo;
-		this.cart = cart;
 	}
 
 	public Long getId() {
@@ -129,14 +124,6 @@ public class User {
 		this.photo = photo;
 	}
 
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-	
 	public String getAccessToken() {
 		return accessToken;
 	}
@@ -151,7 +138,6 @@ public class User {
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		result = prime * result + ((bDate == null) ? 0 : bDate.hashCode());
-		result = prime * result + ((cart == null) ? 0 : cart.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -179,11 +165,6 @@ public class User {
 			if (other.bDate != null)
 				return false;
 		} else if (!bDate.equals(other.bDate))
-			return false;
-		if (cart == null) {
-			if (other.cart != null)
-				return false;
-		} else if (!cart.equals(other.cart))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -218,8 +199,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", bDate=" + bDate + ", account=" + account + ", role=" + role + ", cart=" + cart + ", photo="
-				+ Arrays.toString(photo) + "]";
+				+ ", bDate=" + bDate + ", account=" + account + ", role=" + role;
 	}
 
 }
