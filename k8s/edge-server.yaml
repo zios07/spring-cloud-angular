@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: edge-server
-        image: zios07/edge-server
+        image: zios07/edge-server:0.1.0
         ports:
         - containerPort: 8765
         resources:
@@ -36,8 +36,5 @@ metadata:
 spec:
   selector:
     app: edge-server
-  type: NodePort
   ports:
-  - protocol: TCP
-    port: 8765
-    targetPort: 8765
+  - port: 8765

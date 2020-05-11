@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  API_URL: 'http://product-service:9901/'
+  API_URL: 'ecomapp.westeurope.cloudapp.azure.com/backend/product-service/'
 };

@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end
+  name: web-app
   labels:
-    app: front-end
+    app: web-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front-end
+      app: web-app
   template:
     metadata:
       labels:
-        app: front-end
+        app: web-app
     spec:
       containers:
-      - name: front-end
-        image: zios07/eco-web:0.0.2
+      - name: web-app
+        image: zios07/web-app:0.1.0
         ports:
         - containerPort: 80
         resources:
@@ -28,11 +28,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end
+  name: web-app
 spec:
   selector:
-    app: front-end
-  type: NodePort
+    app: web-app
   ports:
-  - protocol: TCP
-    port: 80
+  - port: 80

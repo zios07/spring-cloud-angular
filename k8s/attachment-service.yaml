@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: attachment-service
-        image: zios07/attachment-service:0.0.1
+        image: zios07/attachment-service:0.1.0
         ports:
         - containerPort: 9902
         resources:
@@ -35,8 +35,5 @@ metadata:
 spec:
   selector:
     app: attachment-service
-  type: NodePort
   ports:
-  - protocol: TCP
-    port: 9902
-    targetPort: 9902
+  - port: 9902

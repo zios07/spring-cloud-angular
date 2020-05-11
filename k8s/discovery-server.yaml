@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: discovery-server
-        image: zios07/discovery-server
+        image: zios07/discovery-server:0.1.0
         ports:
         - containerPort: 8761
         resources:
@@ -36,8 +36,5 @@ metadata:
 spec:
   selector:
     app: discovery-server
-  type: NodePort
   ports:
-  - protocol: TCP
-    port: 8761
-    targetPort: 8761
+  - port: 8761

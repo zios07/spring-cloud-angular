@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: basic-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - host: ecomapp.westeurope.cloudapp.azure.com
+    http:
+      paths:
+      - backend:
+          serviceName: web-app
+          servicePort: 80
+        path: /(/|$)(.*)
+      - backend:
+          serviceName: edge-server
+          servicePort: 8765
+        path: /backend(/|$)(.*)
+      - backend:
+          serviceName: product-service
+          servicePort: 9901
+        path: /product-service(/|$)(.*)
+      - backend:
+          serviceName: adminer
+          servicePort: 5432
+        path: /adminer(/|$)(.*)
+      - backend:
+          serviceName: discover-server
+          servicePort: 8761
+        path: /discover-server(/|$)(.*)
+      - backend:
+          serviceName: config-server
+          servicePort: 8888
+        path: /config-server(/|$)(.*)

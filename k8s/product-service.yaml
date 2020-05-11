@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: product-service
-        image: zios07/product-service:0.0.1
+        image: zios07/product-service:0.1.0
         ports:
         - containerPort: 9901
         resources:
@@ -35,8 +35,5 @@ metadata:
 spec:
   selector:
     app: product-service
-  type: NodePort
   ports:
-  - protocol: TCP
-    port: 9901
-    targetPort: 9901
+  - port: 9901
