@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: adminer-deployment
+  name: config-server
   labels:
-    app: adminer
+    app: config-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: adminer
+      app: config-server
   template:
     metadata:
       labels:
-        app: adminer
+        app: config-server
     spec:
       containers:
-      - name: adminer
-        image: adminer
+      - name: config-server
+        image: zios07/config-server
         ports:
-        - containerPort: 8080
+        - containerPort: 8888
         resources:
           limits:
             cpu: ".1"
@@ -29,12 +29,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: adminer-service
+  name: config-server
 spec:
   selector:
-    app: adminer
-  type: LoadBalancer
+    app: config-server
+  type: NodePort
   ports:
   - protocol: TCP
-    port: 8080
-    targetPort: 8080
+    port: 8888
+    targetPort: 8888

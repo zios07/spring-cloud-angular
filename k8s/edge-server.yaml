@@ -1,40 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: config-server-deployment
+  name: edge-server
   labels:
-    app: config-server
+    app: edge-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: config-server
+      app: edge-server
   template:
     metadata:
       labels:
-        app: config-server
+        app: edge-server
     spec:
       containers:
-      - name: config-server
-        image: zios07/config-server
+      - name: edge-server
+        image: zios07/edge-server
         ports:
-        - containerPort: 8888
+        - containerPort: 8765
         resources:
           limits:
             cpu: ".1"
             memory: "256Mi"
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: staging
  
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-server-service
+  name: edge-server
 spec:
   selector:
-    app: config-server
-  type: LoadBalancer
+    app: edge-server
+  type: NodePort
   ports:
   - protocol: TCP
-    port: 8888
-    targetPort: 8888
+    port: 8765
+    targetPort: 8765

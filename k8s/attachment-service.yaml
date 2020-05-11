@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: attachment-service-deployment
+  name: attachment-service
   labels:
     app: attachment-service
 spec:
@@ -21,7 +21,7 @@ spec:
         - containerPort: 9902
         resources:
           limits:
-            cpu: ".5"
+            cpu: ".1"
             memory: "256Mi"
         env:
           - name: SPRING_PROFILES_ACTIVE
@@ -31,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: attachment-service-service
+  name: attachment-service
 spec:
   selector:
     app: attachment-service
-  type: LoadBalancer
+  type: NodePort
   ports:
   - protocol: TCP
     port: 9902

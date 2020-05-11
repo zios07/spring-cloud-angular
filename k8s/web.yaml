@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front-end-deployment
+  name: front-end
   labels:
     app: front-end
 spec:
@@ -28,12 +28,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: front-end-service
+  name: front-end
 spec:
   selector:
     app: front-end
-  type: LoadBalancer
+  type: NodePort
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 80

@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: discovery-server-deployment
+  name: product-service
   labels:
-    app: discovery-server
+    app: product-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: discovery-server
+      app: product-service
   template:
     metadata:
       labels:
-        app: discovery-server
+        app: product-service
     spec:
       containers:
-      - name: discovery-server
-        image: zios07/discovery-server
+      - name: product-service
+        image: zios07/product-service:0.0.1
         ports:
-        - containerPort: 8761
+        - containerPort: 9901
         resources:
           limits:
             cpu: ".1"
@@ -26,18 +26,17 @@ spec:
         env:
           - name: SPRING_PROFILES_ACTIVE
             value: staging
- 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: discovery-server-service
+  name: product-service
 spec:
   selector:
-    app: discovery-server
-  type: LoadBalancer
+    app: product-service
+  type: NodePort
   ports:
   - protocol: TCP
-    port: 8761
-    targetPort: 8761
+    port: 9901
+    targetPort: 9901
