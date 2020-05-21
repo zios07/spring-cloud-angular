@@ -16,13 +16,14 @@ spec:
     spec:
       containers:
       - name: product-service
-        image: zios07/product-service:0.1.0
+        image: zios07/product-service:0.1.1
+        imagePullPolicy: Always
         ports:
         - containerPort: 9901
         resources:
           limits:
-            cpu: ".1"
-            memory: "256Mi"
+            cpu: ".4"
+            memory: "512Mi"
         env:
           - name: SPRING_PROFILES_ACTIVE
             value: staging

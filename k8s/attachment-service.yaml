@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: attachment-service
-        image: zios07/attachment-service:0.1.0
+        image: zios07/attachment-service:0.1.1
         ports:
         - containerPort: 9902
         resources:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: discovery-server
-        image: zios07/discovery-server:0.1.0
+        image: zios07/discovery-server:0.1.1
         ports:
         - containerPort: 8761
         resources:

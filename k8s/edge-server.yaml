@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: edge-server
-        image: zios07/edge-server:0.1.0
+        image: zios07/edge-server:0.1.1
         ports:
         - containerPort: 8765
         resources:
