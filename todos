@@ -7,7 +7,6 @@ pipelines (build, test, deploy)
 kubenertes migration
 
 3 -
-Keycloack
 UserService
 ProductService
 OrderService
@@ -16,3 +15,8 @@ AssetService
 4 -
 axon framework
 Sagas vs 2PC ??
+
+5 -
+upgrade spring-boot/angular versions
+redesign using angular material
+Keycloack
