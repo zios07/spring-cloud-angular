@@ -63,11 +63,11 @@ services:
     hostname: "rabbit"
     container_name: rabbit
     restart: always
-    environment:
-      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "root"
-      RABBITMQ_DEFAULT_PASS: "root"
-      RABBITMQ_DEFAULT_VHOST: "/"
+    # environment:
+    #   RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+    #   RABBITMQ_DEFAULT_USER: "root"
+    #   RABBITMQ_DEFAULT_PASS: "root"
+    #   RABBITMQ_DEFAULT_VHOST: "/"
     ports:
       - "15672:15672"
       - "5672:5672"

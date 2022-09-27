@@ -6,13 +6,6 @@ spring:
     mongodb:
       uri: mongodb://root:root@localhost:27017/ecomapp-attachments
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    password: user
-    username: user
-    virtual-host: /
-
 queue:
   attachment:
     name: AttachmentQueue
