@@ -7,7 +7,7 @@ spring:
       uri: mongodb://root:root@localhost:27017/test?authSource=admin&authMechanism=SCRAM-SHA-1
 
   rabbitmq:
-    host: rabbit
+    host: localhost
     port: 5672
     password: root
     username: root
@@ -23,12 +23,12 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
-
-
 ---
 
 spring:
   profiles: staging
+  rabbitmq:
+    host: rabbit
   data:
     mongodb:
       uri: mongodb://root:root@mongo:27017/test?authSource=admin&authMechanism=SCRAM-SHA-1
