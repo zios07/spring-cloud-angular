@@ -1,21 +1,18 @@
-#server:
-#  port: 8888
-#  
-#spring:
-#  cloud:
-#    config:
-#      server:
-#        git:
-#          uri: file://${user.home}/Desktop/ecommerce-app
-#          search-paths:
-#          - config-repo
-#
-#---
 server:
   port: 8888
-  
+
 spring:
-#  profiles: staging, prod
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/Desktop/Projects/spring-cloud-angular
+          search-paths:
+          - config-repo
+
+---
+spring:
+  profiles: staging, prod
   cloud:
     config:
       server:
