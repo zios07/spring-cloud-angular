@@ -4,7 +4,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://root:root@localhost:27017
+      uri: mongodb://root:root@localhost:27017/ecomapp-attachments
 
   rabbitmq:
     host: localhost
