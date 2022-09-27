@@ -7,7 +7,7 @@ spring:
       maxFileSize: 1MB
       max-request-size: 10MB
   rabbitmq:
-    host: rabbit
+    host: localhost
     port: 5672
     password: root
     username: root
@@ -39,6 +39,8 @@ eureka:
 
 spring:
   profiles: staging
+  rabbitmq:
+    host: rabbit
   datasource:
     driver-class-name: org.postgresql.Driver
     password: postgres
