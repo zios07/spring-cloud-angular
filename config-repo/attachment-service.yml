@@ -4,7 +4,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://root:root@localhost:27017/ecomapp-attachments
+      uri: mongodb://user1:user1@localhost:27017/ecomapp-attachments
 
 queue:
   attachment:
@@ -24,7 +24,7 @@ spring:
     host: rabbit
   data:
     mongodb:
-      uri: mongodb://root:root@mongo:27017/test?authSource=admin&authMechanism=SCRAM-SHA-1
+      uri: mongodb://user1:user1@mongo:27017/test?authSource=admin&authMechanism=SCRAM-SHA-1
 
 eureka:
   client:
