@@ -10,7 +10,9 @@ spring:
     virtual-host: /
   data:
     mongodb:
-      uri: mongodb://user1:user1@localhost:27017/ecomapp-attachments
+      user: root
+      password: root
+      uri: mongodb://localhost:27017/ecomapp-attachments
 
 queue:
   attachment:
