@@ -2,6 +2,12 @@ server:
   port: 9902
 
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    password: root
+    username: root
+    virtual-host: /
   data:
     mongodb:
       uri: mongodb://user1:user1@localhost:27017/ecomapp-attachments
