@@ -1,6 +1,9 @@
 spring:
   application:
     name: discovery-server
+  cloud:
+    config:
+      uri: http://localhost:8888
 
 ---
 
@@ -18,4 +21,4 @@ spring:
     active: prod
   cloud:
     config:
-      uri: http://config-server:8888 
+      uri: http://config-server:8888
