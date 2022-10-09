@@ -6,13 +6,14 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/Desktop/ecommerce-app/app-v3/ecommerce-app
+          uri: file://${user.dir}/..
           search-paths:
           - config-repo
 
 ---
 spring:
-  profiles: staging, prod
+  profiles:
+    active: staging, prod
   cloud:
     config:
       label: cart-service

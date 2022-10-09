@@ -1,15 +1,12 @@
 spring:
   application:
     name: discovery-server
-  cloud:
-    config:
-      label: cart-service
-      uri: http://localhost:8888 
 
 ---
 
 spring:
-  profiles: staging
+  profiles:
+    active: staging
   cloud:
     config:
       uri: http://config-server:8888 
@@ -17,7 +14,8 @@ spring:
 ---
 
 spring:
-  profiles: prod
+  profiles:
+    active: prod
   cloud:
     config:
       uri: http://config-server:8888 
