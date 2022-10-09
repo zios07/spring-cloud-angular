@@ -8,8 +8,7 @@ spring:
 ---
 
 spring:
-  profiles:
-    active: staging
+  profiles: staging
   cloud:
     config:
       uri: http://config-server:8888 
@@ -17,8 +16,7 @@ spring:
 ---
 
 spring:
-  profiles:
-    active: prod
+  profiles: prod
   cloud:
     config:
       uri: http://config-server:8888
