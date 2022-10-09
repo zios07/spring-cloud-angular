@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: file://${user.home}/Desktop/Projects/spring-cloud-angular
+          uri: file://${user.dir}/..
           search-paths:
           - config-repo
 
